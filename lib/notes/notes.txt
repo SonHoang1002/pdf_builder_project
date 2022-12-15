@@ -1,0 +1,42 @@
+
+    // showDatePicker(
+    //                                     context: context,
+    //                                     initialDate: DateTime.now(),
+    //                                     //which date will display when user open the picker
+    //                                     firstDate: DateTime(1950),
+    //                                     //what will be the previous supported year in picker
+    //                                     lastDate: DateTime
+    //                                         .now()) //what will be the up to supported date in picker
+    //                                 .then((pickedDate) {
+    //                               //then usually do the future job
+    //                               if (pickedDate != null) {
+    //                                 setState(() {
+    //                                   // print(pickedDate!.toIso8601String());
+    //                                   dateController.text =
+    //                                         DateFormat("yyyy-MM-dd")
+    //                                             .format(pickedDate);
+    //                                 });
+    //                               }
+    //                             });
+  
+
+
+ios =>
+showModalBottomSheet(
+                                    context: context,
+                                    builder: ((context) {
+                                      return CupertinoDatePicker(
+                                        mode: CupertinoDatePickerMode.date,
+                                        onDateTimeChanged: (value) {
+                                          if (value != null &&
+                                              value != dateController.text)
+                                            setState(() {
+                                              dateController.text = DateFormat(
+                                                      "yyyy-MM-dd")
+                                                  .format(value);
+                                              //DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now())
+                                            });
+                                        },
+                                        initialDateTime: DateTime.now(),
+                                      );
+                                    }));
