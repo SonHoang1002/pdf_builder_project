@@ -1,6 +1,8 @@
 import 'package:cv_1/modules/edit/edit.dart';
 import 'package:cv_1/modules/home/home.dart';
 import 'package:cv_1/modules/onboading/on_boarding.dart';
+import 'package:cv_1/tests/test.dart';
+import 'package:cv_1/tests/test_dropdownlist.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,7 +38,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: white,
         // primaryColor: Colors.white
       ),
-      home: const Edit(),
+      home:  Edit(),
+      // home:Test1(),
     );
   }
 }

@@ -39,6 +39,9 @@ dependencies:
   carousel_slider: ^4.2.1
   intl: ^0.18.0
   flutter_cupertino_date_picker_fork: ^1.0.7
+  image_picker: ^0.8.5+3
+  file_picker: ^5.0.1
+  path_drawing: ^1.0.1
 
 dev_dependencies:
   flutter_test:

@@ -17,4 +17,7 @@ class ConstantVariable {
     "Skill",
     "Summary"
   ];
+
+  static RegExp regExp = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+
 }
