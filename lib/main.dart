@@ -28,8 +28,6 @@ const MaterialColor white = const MaterialColor(
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -39,7 +37,8 @@ class MyApp extends StatelessWidget {
         // primaryColor: Colors.white
       ),
       home:  Edit(),
-      // home:Test1(),
+      // home:Test(),
+      // https://api.flutter.dev/flutter/widgets/Focus-class.html
     );
   }
 }

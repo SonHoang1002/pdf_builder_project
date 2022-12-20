@@ -2,8 +2,13 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cv_1/common/format_input.dart';
-import 'package:cv_1/modules/edit/education.dart';
-import 'package:cv_1/modules/edit/experience.dart';
+import 'package:cv_1/modules/edit/components/addtional.dart';
+import 'package:cv_1/modules/edit/components/contact.dart';
+import 'package:cv_1/modules/edit/components/education.dart';
+import 'package:cv_1/modules/edit/components/experience.dart';
+import 'package:cv_1/modules/edit/components/infomation.dart';
+import 'package:cv_1/modules/edit/components/skill.dart';
+import 'package:cv_1/modules/edit/components/summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cv_1/common/const_var.dart';
 import 'package:cv_1/widgets/button_widget.dart';
@@ -33,16 +38,8 @@ class _EditState extends State<Edit> {
   late double width;
 
 // info var
-  late TextEditingController fullNameController =
-      TextEditingController(text: "");
-  late TextEditingController jobTitleController =
-      TextEditingController(text: "");
-  late TextEditingController dateController = TextEditingController(text: "");
-  late TextEditingController urlController = TextEditingController(text: "");
-  final ScrollController _scrollController = ScrollController();
 
-  File? _pickedImage;
-  XFile? _image;
+  final ScrollController _scrollController = ScrollController();
 
 //contact var
   late TextEditingController addressController =
@@ -52,7 +49,6 @@ class _EditState extends State<Edit> {
   late String titlePhone = "Phone Number";
   late String titleEmail = "Email Address";
   late String titleAddress = "Your Address";
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +90,14 @@ class _EditState extends State<Edit> {
           FocusManager.instance.primaryFocus?.unfocus();
         },
         child: Container(
-          color: Colors.grey.shade400,
+          color: Colors.grey[100],
+          height: double.infinity,
           child: SafeArea(
             top: true,
             child: ListView(children: [
               Container(
                 margin: const EdgeInsets.only(top: 10),
+                //  height: double.infinity,
                 child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -431,7 +429,7 @@ class _EditState extends State<Edit> {
                                     inPage = 6;
                                   });
                                   await _scrollController.animateTo(
-                                      0.25 * width + 600,
+                                      0.25 * width + 590,
                                       duration:
                                           const Duration(milliseconds: 500),
                                       curve: Curves.easeIn);
@@ -483,26 +481,94 @@ class _EditState extends State<Edit> {
                                 ),
                               ),
                             ),
+                            // "Addtional"
+                            Container(
+                              margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
+                              child: ElevatedButton(
+                                onPressed: () async {
+                                  setState(() {
+                                    inPage = 7;
+                                  });
+                                  await _scrollController.animateTo(
+                                      0.25 * width + 800,
+                                      duration:
+                                          const Duration(milliseconds: 500),
+                                      curve: Curves.easeIn);
+                                },
+                                style: ButtonStyle(
+                                    backgroundColor:
+                                        MaterialStateProperty.resolveWith(
+                                      (states) {
+                                        return (inPage == 7
+                                            ? Colors.blue
+                                            : Colors.white);
+                                      },
+                                    ),
+                                    fixedSize: MaterialStateProperty.resolveWith(
+                                        (states) => const Size(130, 20)),
+                                    side: MaterialStateProperty.resolveWith(
+                                        (states) => const BorderSide(
+                                            color: Colors.transparent)),
+                                    shape: MaterialStateProperty.all<
+                                            RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                            side: const BorderSide(
+                                                color: Colors.transparent)))),
+                                child: Center(
+                                  child: Row(
+                                    children: [
+                                      Image.asset(
+                                          ConstantVariable.pathImg +
+                                              "additional.png",
+                                          height: 20,
+                                          width: 20,
+                                          color: inPage == 7
+                                              ? Colors.white
+                                              : Colors.grey),
+                                      const SizedBox(
+                                        width: 10,
+                                      ),
+                                      Text(
+                                        "Additional",
+                                        style: TextStyle(
+                                            color: inPage == 7
+                                                ? Colors.white
+                                                : Colors.grey),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          
                             //empty
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
-                              child: const SizedBox(width: 130, height: 20),
+                              child: const SizedBox(width: 90, height: 20),
                             ),
                           ]),
                     ),
                     //body
                     inPage == 1
-                        ? _buildInfoBody()
+                        ? Infomation()
                         : inPage == 2
-                            ? _buildContactBody()
-                            : inPage==3
-                              ? Education()
-                              :inPage ==4
-                                ? Experience()
-                                :Container(),
+                            ? Contact()
+                            : inPage == 3
+                                ? Education()
+                                : inPage == 4
+                                    ? Experience()
+                                    : inPage == 5
+                                        ? Skill()
+                                        : inPage == 6
+                                            ? Summary()
+                                            : inPage == 7
+                                                ? Additional()
+                                                : Container(),
 
                     // navigate
-                    buildButtonBottom(),
+                    inPage ==7 ? Container() :buildButtonBottom(),
                     // SizedBox(height: 7,)
                   ],
                 ),
@@ -512,481 +578,6 @@ class _EditState extends State<Edit> {
         ),
       ),
     );
-  }
-
-  Widget _buildInfoBody() {
-    return Column(
-      children: [
-        Container(
-          height: 230,
-          padding: const EdgeInsets.only(top: 15),
-          // color: Colors.red,
-          child: Center(
-              child: Column(
-            children: [
-              //image
-              _pickedImage == null
-                  ? Container(
-                      height: 167,
-                      child: Image.asset(
-                        ConstantVariable.listOfImage[1],
-                      ))
-                  : Container(
-                      height: 167,
-                      child: CircleAvatar(
-                          maxRadius: 60,
-                          backgroundImage: FileImage(_pickedImage!)),
-                    ),
-              //edit button
-              ElevatedButton(
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) {
-                        return AlertDialog(
-                          content: SingleChildScrollView(
-                            child: ListBody(
-                              children: [
-                                ListTile(
-                                  leading: const Icon(Icons.camera),
-                                  title: const Text("Pick From Camera"),
-                                  onTap: () {
-                                    getImage(ImageSource.camera);
-                                  },
-                                ),
-                                ListTile(
-                                  leading: const Icon(Icons.camera),
-                                  title: const Text("Pick From Galery"),
-                                  onTap: () {
-                                    getImage(ImageSource.gallery);
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                        );
-                      });
-                },
-                style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all(Colors.grey),
-                    fixedSize: MaterialStateProperty.resolveWith(
-                        (states) => const Size(70, 20)),
-                    side: MaterialStateProperty.resolveWith((states) =>
-                        const BorderSide(color: Colors.transparent)),
-                    mouseCursor: MaterialStateProperty.resolveWith((states) {
-                      if (states.contains(MaterialState.hovered)) {
-                        return MouseCursor.defer;
-                      }
-                      return MouseCursor.uncontrolled;
-                    }),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(35.0),
-                            side: const BorderSide(color: Colors.white)))),
-                child: const Text(
-                  "Edit",
-                  style: TextStyle(color: Colors.blue, fontSize: 17),
-                ),
-              )
-            ],
-          )),
-        ),
-        //input tags
-        Container(
-          // padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-          height: 305,
-          // color: Colors.black,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Container(
-                height: 144,
-                width: double.infinity,
-                margin: EdgeInsets.all(20),
-                // color: Colors.red,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: Column(
-                  children: [
-                    //name
-                    SizedBox(
-                      width: 0.8 * width,
-                      // height: 40,
-                      child: TextFormField(
-                        controller: fullNameController,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          prefixIcon: Container(
-                            width: 100,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                  child: Text(
-                                    'Full name',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    //job
-                    SizedBox(
-                      width: 0.8 * width,
-                      // height: 40,
-                      child: TextFormField(
-                        controller: jobTitleController,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          prefixIcon: Container(
-                            width: 100,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                  child: Text(
-                                    'Job Title',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    // date
-                    SizedBox(
-                      width: 0.8 * width,
-                      // height: 40,
-                      child: TextFormField(
-                        controller: dateController,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                        decoration: InputDecoration(
-                          fillColor: Colors.white,
-                          filled: true,
-                          border: InputBorder.none,
-                          prefixIcon: Container(
-                            width: 100,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                  child: Text(
-                                    'Date of birth',
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text("LINKS (Portfolio, Bio,..."),
-                    urlController.text.trim().length > 0
-                        ? GestureDetector(
-                            child: const Text(
-                              "Edit",
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 14),
-                            ),
-                            onTap: () {
-                              urlNode.requestFocus();
-                            })
-                        : Container()
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              //url
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: TextFormField(
-                  focusNode: urlNode,
-                  controller: urlController,
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: Colors.white,
-                    suffixIcon: Container(
-                      height: 20,
-                      width: 20,
-                      child: Image.asset(ConstantVariable.pathImg + "icon.png"),
-                    ),
-                    enabledBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.white),
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    hintText: "Type or paste URL",
-                    // labelText: "Username",
-                    hintStyle: const TextStyle(color: Colors.grey),
-                    border: const OutlineInputBorder(),
-                    isDense: true,
-                    contentPadding: const EdgeInsets.all(12),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 20,
-                    width: 20,
-                    child:
-                        Image.asset(ConstantVariable.pathImg + "icon_add.png"),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      urlNode.requestFocus();
-                    },
-                    child: const Text(
-                      "Add Link",
-                      style: TextStyle(color: Colors.blue, fontSize: 16),
-                    ),
-                  )
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildContactBody() {
-    return Container(
-      height: 515,
-      margin: EdgeInsets.only(top: 20),
-      child: Column(
-        children: [
-          //input tags
-          Container(
-            height: 275,
-            // color: Colors.black,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                //title contact details
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("CONTACT DETAILS"),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  ),
-                ),
-                // contact detail body
-                Container(
-                  height: 96,
-                  width: double.infinity,
-                  margin: EdgeInsets.all(15),
-                  // color: Colors.red,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                  child: Column(
-                    children: [
-                      //phone
-                      SizedBox(
-                        width: 0.8 * width,
-                        // height: 40,
-                        child: TextFormField(
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            CustomInputFormatter()
-                          ],
-                          keyboardType: TextInputType.number,
-                          onChanged: (value) {
-                            if (phoneController.text.trim().length > 0) {
-                              setState(() {
-                                titlePhone = "Phone";
-                              });
-                              return;
-                            } else {
-                              setState(() {
-                                titlePhone = "Phone Number";
-                              });
-                            }
-                          },
-                          controller: phoneController,
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            prefixIcon: Container(
-                              width: 100,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    child: Text(
-                                      titlePhone,
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      // email
-                      SizedBox(
-                        width: 0.8 * width,
-                        // height: 40,
-                        child: TextFormField(
-                          controller: emailController,
-                          onChanged: (value) {
-                            if (emailController.text.trim().length > 0) {
-                              setState(() {
-                                titleEmail = "Email";
-                              });
-                              return;
-                            }
-                              setState(() {
-                                titleEmail = "Email Address";
-                              });
-                              return;
-                          },
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                          decoration: InputDecoration(
-                            fillColor: Colors.white,
-                            filled: true,
-                            border: InputBorder.none,
-                            prefixIcon: Container(
-                              width: 100,
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
-                                    child: Text(
-                                      titleEmail,
-                                      style: TextStyle(color: Colors.black),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 30,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text("ADDRESS"),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                //address
-                Container(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                  ),
-                  child: TextFormField(
-                    controller: addressController,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    onChanged: (value) {
-                            if (addressController.text.trim().length > 0) {
-                              setState(() {
-                                titleAddress = "Address";
-                              });
-                              return;
-                            }
-                              setState(() {
-                                titleAddress = "Your Address";
-                              });
-                              return;
-                          },
-                    decoration: InputDecoration(
-                      prefixIcon: Container(
-                        width: 100,
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
-                              child: Text(
-                               titleAddress,
-                                style: TextStyle(color: Colors.black),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                      enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(15)),
-                          borderSide: BorderSide(color: Colors.white)),
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: const OutlineInputBorder(),
-                      isDense: true,
-                      contentPadding: const EdgeInsets.all(12),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Future getImage(ImageSource src) async {
-    _image = (await ImagePicker().pickImage(source: src))!;
-    setState(() {
-      _pickedImage = File(_image!.path);
-    });
   }
 
   Widget buildButtonBottom() {
@@ -1003,9 +594,9 @@ class _EditState extends State<Edit> {
             setState(() {
               inPage++;
             });
-            if (inPage > 6)
+            if (inPage > 7)
               setState(() {
-                inPage = 6;
+                inPage = 7;
               });
             if (inPage == 1) {
               await _scrollController.animateTo(width / 2 - 180,
@@ -1034,6 +625,11 @@ class _EditState extends State<Edit> {
             }
             if (inPage == 6) {
               await _scrollController.animateTo(width / 2 + 500,
+                  duration: const Duration(milliseconds: 500),
+                  curve: Curves.easeIn);
+            }
+            if (inPage == 7) {
+              await _scrollController.animateTo(width / 2 + 640,
                   duration: const Duration(milliseconds: 500),
                   curve: Curves.easeIn);
             }
