@@ -36,8 +36,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: white,
         // primaryColor: Colors.white
       ),
-      home:  Edit(),
-      // home:Test(),
+      // home:  Edit(),
+      home:Test(),
       // https://api.flutter.dev/flutter/widgets/Focus-class.html
     );
   }

@@ -163,12 +163,12 @@ class _ContactState extends State<Contact> {
                    
                     decoration: InputDecoration(
                       prefixIcon: Container(
-                        width: 100,
+                        width: 104,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Padding(
-                              padding: EdgeInsets.fromLTRB(10, 0, 5, 0),
+                              padding: EdgeInsets.fromLTRB(15, 0, 5, 0),
                               child: Text(
                                 contact.address.text.trim().length > 0
                                     ? shortTitle[2]

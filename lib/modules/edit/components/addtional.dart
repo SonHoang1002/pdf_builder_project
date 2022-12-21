@@ -43,14 +43,10 @@ class _AdditionalState extends State<Additional> {
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return Container(
-      height: (515 +
-          20 *
-              (additionalModel.listAchie.length +
-                  additionalModel.listCerti.length +
-                  additionalModel.listLang.length -
-                  3)),
+      height: (660),
       // color: Colors.yellow,
-      margin: const EdgeInsets.only(top: 5),
+      margin: const EdgeInsets.only(top: 5, bottom: 10),
+      padding: const EdgeInsets.only(top: 5, bottom: 10),
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -65,7 +61,7 @@ class _AdditionalState extends State<Additional> {
                             isFixing = false;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Done",
                           style: TextStyle(
                               color: Colors.black,
@@ -79,7 +75,7 @@ class _AdditionalState extends State<Additional> {
                             isFixing = true;
                           });
                         },
-                        child: Text(
+                        child: const Text(
                           "Edit",
                           style: TextStyle(
                               color: Colors.black,
@@ -87,20 +83,21 @@ class _AdditionalState extends State<Additional> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
-                SizedBox(
+                const SizedBox(
                   width: 25,
                 )
               ],
             ),
             //input tags
             Container(
-              height: (500 +
-                  20 *
-                      (additionalModel.listAchie.length +
-                          additionalModel.listCerti.length +
-                          additionalModel.listLang.length -
-                          3)),
-              // color: Colors.red,
+              height: (590
+                  // +20 *
+                  //     (additionalModel.listAchie.length +
+                  //         additionalModel.listCerti.length +
+                  //         additionalModel.listLang.length -
+                  //         3)
+                  ),
+              // color: Colors.green,
               margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
               child: ListView.builder(
                 itemCount: 1,
@@ -112,8 +109,8 @@ class _AdditionalState extends State<Additional> {
                           child: additionalModel.langOpen
                               ? Container(
                                   // height: additionalModel.listLang.length >2 ? 230 : additionalModel.listLang.length >1 ? 200 :160,
-                                  height: (115 +
-                                      additionalModel.listLang.length * 55),
+                                  height: (100 +
+                                      additionalModel.listLang.length * 53),
                                   width: width,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 5),
@@ -145,19 +142,18 @@ class _AdditionalState extends State<Additional> {
                                                     height: 35,
                                                     width: 35,
                                                     child: Image.asset(
-                                                        ConstantVariable
-                                                                .pathImg +
-                                                            "languages.png"),
+                                                        "${ConstantVariable.pathImg}languages.png"),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
                                                     child: Text(
                                                       "Languages",
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -177,8 +173,7 @@ class _AdditionalState extends State<Additional> {
                                                   });
                                                 },
                                                 child: Image.asset(
-                                                  ConstantVariable.pathImg +
-                                                      "hide.png",
+                                                  "${ConstantVariable.pathImg}hide.png",
                                                 ),
                                               ),
                                             )),
@@ -258,7 +253,7 @@ class _AdditionalState extends State<Additional> {
                                                                   width * 0.7,
                                                               child: Row(
                                                                 children: [
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 10,
                                                                   ),
                                                                   GestureDetector(
@@ -270,12 +265,12 @@ class _AdditionalState extends State<Additional> {
                                                                       height:
                                                                           20,
                                                                       width: 20,
-                                                                      child: Image.asset(
-                                                                          ConstantVariable.pathImg +
-                                                                              "remove.png"),
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}remove.png"),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 20,
                                                                   ),
                                                                   Text(
@@ -300,12 +295,12 @@ class _AdditionalState extends State<Additional> {
                                                                       height:
                                                                           20,
                                                                       width: 20,
-                                                                      child: Image.asset(
-                                                                          ConstantVariable.pathImg +
-                                                                              "reorder.png"),
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}reorder.png"),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 15,
                                                                   ),
                                                                 ],
@@ -320,12 +315,13 @@ class _AdditionalState extends State<Additional> {
                                         : Column(
                                             children: [
                                               Container(
-                                                height: (25 +
+                                                height: (13 +
                                                     additionalModel
                                                             .listLang.length *
-                                                        55),
-                                                // height: additionalModel.listLang.length >2 ? 150 : additionalModel.listLang.length >1 ? 120 : 70,
-                                                color: Colors.red,
+                                                        53),
+                                                padding:
+                                                    EdgeInsets.only(bottom: 5),
+                                                // color: Colors.red,
                                                 child: ListView.builder(
                                                     itemCount: additionalModel
                                                         .listLang.length,
@@ -333,8 +329,9 @@ class _AdditionalState extends State<Additional> {
                                                         (context, indexLang) {
                                                       return Container(
                                                         padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                0, 10, 0, 5),
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 1, 0, 5),
                                                         child: Row(
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
@@ -345,17 +342,23 @@ class _AdditionalState extends State<Additional> {
                                                               width:
                                                                   0.5 * width,
                                                               margin: EdgeInsets
-                                                                  .fromLTRB(10,
-                                                                      0, 5, 0),
+                                                                  .fromLTRB(
+                                                                      10,
+                                                                      indexLang ==
+                                                                              0
+                                                                          ? 10
+                                                                          : 5,
+                                                                      0,
+                                                                      0),
                                                               height: 43,
                                                               decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)),
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
                                                                   color: Colors
                                                                           .grey[
-                                                                      300]),
+                                                                      100]),
                                                               child: Center(
                                                                 child: SizedBox(
                                                                   height: 43,
@@ -373,14 +376,14 @@ class _AdditionalState extends State<Additional> {
                                                                     decoration: InputDecoration(
                                                                         hintText:
                                                                             "Language",
-                                                                        contentPadding: EdgeInsets.fromLTRB(
+                                                                        contentPadding: const EdgeInsets.fromLTRB(
                                                                             5,
                                                                             0,
                                                                             0,
                                                                             3),
                                                                         fillColor:
                                                                             Colors.grey[
-                                                                                300],
+                                                                                100],
                                                                         filled:
                                                                             true,
                                                                         border:
@@ -395,16 +398,22 @@ class _AdditionalState extends State<Additional> {
                                                                   0.3 * width,
                                                               height: 43,
                                                               margin: EdgeInsets
-                                                                  .fromLTRB(5,
-                                                                      0, 10, 0),
+                                                                  .fromLTRB(
+                                                                      5,
+                                                                      indexLang ==
+                                                                              0
+                                                                          ? 10
+                                                                          : 5,
+                                                                      10,
+                                                                      0),
                                                               decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)),
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
                                                                   color: Colors
                                                                           .grey[
-                                                                      300]),
+                                                                      100]),
                                                               child: Center(
                                                                 child: SizedBox(
                                                                   height: 43,
@@ -429,7 +438,7 @@ class _AdditionalState extends State<Additional> {
                                                                             3),
                                                                         fillColor:
                                                                             Colors.grey[
-                                                                                300],
+                                                                                100],
                                                                         filled:
                                                                             true,
                                                                         border:
@@ -446,8 +455,8 @@ class _AdditionalState extends State<Additional> {
                                               //add language
                                               Center(
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 10),
+                                                  margin: const EdgeInsets.only(
+                                                      top: 10),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -457,9 +466,7 @@ class _AdditionalState extends State<Additional> {
                                                         height: 20,
                                                         width: 20,
                                                         child: Image.asset(
-                                                            ConstantVariable
-                                                                    .pathImg +
-                                                                "icon_add.png"),
+                                                            "${ConstantVariable.pathImg}icon_add.png"),
                                                       ),
                                                       const SizedBox(
                                                         width: 5,
@@ -519,12 +526,13 @@ class _AdditionalState extends State<Additional> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
                                                 children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
                                                     child: Text(
                                                       "Languages",
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -544,8 +552,7 @@ class _AdditionalState extends State<Additional> {
                                                   });
                                                 },
                                                 child: Image.asset(
-                                                  ConstantVariable.pathImg +
-                                                      "show.png",
+                                                  "${ConstantVariable.pathImg}show.png",
                                                 ),
                                               ),
                                             )),
@@ -553,12 +560,13 @@ class _AdditionalState extends State<Additional> {
                                     ),
                                   ]))),
 
+                      // certificates
                       Container(
                           child: additionalModel.certiOpen
                               ? Container(
                                   // height: additionalModel.listLang.length >2 ? 230 : additionalModel.listLang.length >1 ? 200 :160,
-                                  height: (140 +
-                                      additionalModel.listCerti.length * 101),
+                                  height: (85 +
+                                      additionalModel.listCerti.length * 116),
                                   width: width,
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 20, vertical: 5),
@@ -590,19 +598,18 @@ class _AdditionalState extends State<Additional> {
                                                     height: 35,
                                                     width: 35,
                                                     child: Image.asset(
-                                                        ConstantVariable
-                                                                .pathImg +
-                                                            "certificates.png"),
+                                                        "${ConstantVariable.pathImg}certificates.png"),
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     width: 10,
                                                   ),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
                                                     child: Text(
                                                       "Certificates",
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -622,8 +629,7 @@ class _AdditionalState extends State<Additional> {
                                                   });
                                                 },
                                                 child: Image.asset(
-                                                  ConstantVariable.pathImg +
-                                                      "hide.png",
+                                                  "${ConstantVariable.pathImg}hide.png",
                                                 ),
                                               ),
                                             )),
@@ -704,7 +710,7 @@ class _AdditionalState extends State<Additional> {
                                                                   width * 0.7,
                                                               child: Row(
                                                                 children: [
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 10,
                                                                   ),
                                                                   GestureDetector(
@@ -716,12 +722,12 @@ class _AdditionalState extends State<Additional> {
                                                                       height:
                                                                           20,
                                                                       width: 20,
-                                                                      child: Image.asset(
-                                                                          ConstantVariable.pathImg +
-                                                                              "remove.png"),
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}remove.png"),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 20,
                                                                   ),
                                                                   Text(
@@ -746,12 +752,12 @@ class _AdditionalState extends State<Additional> {
                                                                       height:
                                                                           20,
                                                                       width: 20,
-                                                                      child: Image.asset(
-                                                                          ConstantVariable.pathImg +
-                                                                              "reorder.png"),
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}reorder.png"),
                                                                     ),
                                                                   ),
-                                                                  SizedBox(
+                                                                  const SizedBox(
                                                                     width: 15,
                                                                   ),
                                                                 ],
@@ -766,33 +772,38 @@ class _AdditionalState extends State<Additional> {
                                         : Column(
                                             children: [
                                               Container(
-                                                height: (55 +
-                                                    additionalModel
-                                                            .listCerti.length *
-                                                        101),
-                                                // height: additionalModel.listLang.length >2 ? 150 : additionalModel.listLang.length >1 ? 120 : 70,
-                                                color: Colors.red,
+                                                height: (additionalModel
+                                                        .listCerti.length *
+                                                    116),
+                                              //  color: Colors.red,
                                                 child: ListView.builder(
                                                     itemCount: additionalModel
                                                         .listCerti.length,
                                                     itemBuilder:
-                                                        (context, indexLang) {
+                                                        (context, indexCerti) {
                                                       return Container(
                                                         height: 96,
                                                         margin:
                                                             EdgeInsets.fromLTRB(
-                                                                5, 5, 5, 5),
+                                                                5,
+                                                                indexCerti == 0
+                                                                    ? 10
+                                                                    : 5,
+                                                                5,
+                                                                5),
                                                         padding:
-                                                            EdgeInsets.fromLTRB(
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
                                                                 0, 5, 0, 5),
                                                         decoration: BoxDecoration(
                                                             borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
                                                                         .circular(
                                                                             20)),
                                                             color: Colors
-                                                                .grey[300]),
+                                                                .grey[100]),
                                                         child: Column(
                                                           children: [
                                                             // certificate input
@@ -800,20 +811,20 @@ class _AdditionalState extends State<Additional> {
                                                               height: 43,
                                                               width: 320,
                                                               decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)),
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
                                                                   color: Colors
                                                                           .grey[
-                                                                      300]),
+                                                                      100]),
                                                               child: Center(
                                                                 child: SizedBox(
                                                                   child:
                                                                       TextFormField(
                                                                     controller: additionalModel
                                                                         .listCerti[
-                                                                            indexLang]
+                                                                            indexCerti]
                                                                         .nameCertiController,
                                                                     style: const TextStyle(
                                                                         fontWeight:
@@ -821,10 +832,10 @@ class _AdditionalState extends State<Additional> {
                                                                     decoration:
                                                                         InputDecoration(
                                                                       hintText:
-                                                                          "Certificate",
+                                                                          "Certificates",
                                                                       fillColor:
                                                                           Colors
-                                                                              .grey[300],
+                                                                              .grey[100],
                                                                       filled:
                                                                           true,
                                                                     ),
@@ -837,13 +848,13 @@ class _AdditionalState extends State<Additional> {
                                                               height: 43,
                                                               width: 320,
                                                               decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.all(
-                                                                          Radius.circular(
-                                                                              10)),
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
                                                                   color: Colors
                                                                           .grey[
-                                                                      300]),
+                                                                      100]),
                                                               child: Center(
                                                                 child: SizedBox(
                                                                   child:
@@ -852,16 +863,16 @@ class _AdditionalState extends State<Additional> {
                                                                         true,
                                                                     controller: additionalModel
                                                                         .listCerti[
-                                                                            indexLang]
+                                                                            indexCerti]
                                                                         .dateCertiController,
-                                                                    style: TextStyle(
+                                                                    style: const TextStyle(
                                                                         fontWeight:
                                                                             FontWeight.bold),
                                                                     decoration: InputDecoration(
                                                                         // suffix: Column(mainAxisAlignment:MainAxisAlignment.center,children: [SizedBox(height: 20,width: 20,child: Image.asset(ConstantVariable.pathImg+"calendar_light.png"),)],),
                                                                         suffixIcon: GestureDetector(
                                                                           child:
-                                                                              Icon(Icons.calendar_month),
+                                                                              const Icon(Icons.calendar_month),
                                                                           onTap:
                                                                               (() {
                                                                             showModalBottomSheet(
@@ -881,7 +892,7 @@ class _AdditionalState extends State<Additional> {
                                                                           }),
                                                                         ),
                                                                         hintText: "Date",
-                                                                        fillColor: Colors.grey[300],
+                                                                        fillColor: Colors.grey[100],
                                                                         filled: true,
                                                                         border: InputBorder.none),
                                                                   ),
@@ -896,8 +907,8 @@ class _AdditionalState extends State<Additional> {
                                               //add Certificate
                                               Center(
                                                 child: Container(
-                                                  margin:
-                                                      EdgeInsets.only(top: 10),
+                                                  margin: const EdgeInsets.only(
+                                                      top: 10),
                                                   child: Row(
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
@@ -907,9 +918,7 @@ class _AdditionalState extends State<Additional> {
                                                         height: 20,
                                                         width: 20,
                                                         child: Image.asset(
-                                                            ConstantVariable
-                                                                    .pathImg +
-                                                                "icon_add.png"),
+                                                            "${ConstantVariable.pathImg}icon_add.png"),
                                                       ),
                                                       const SizedBox(
                                                         width: 5,
@@ -970,13 +979,14 @@ class _AdditionalState extends State<Additional> {
                                               width: 148,
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.min,
-                                                children: [
+                                                children: const [
                                                   Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
                                                     child: Text(
                                                       "Certificate",
-                                                      style: const TextStyle(
+                                                      style: TextStyle(
                                                           color: Colors.black,
                                                           fontWeight:
                                                               FontWeight.bold),
@@ -996,8 +1006,455 @@ class _AdditionalState extends State<Additional> {
                                                   });
                                                 },
                                                 child: Image.asset(
-                                                  ConstantVariable.pathImg +
-                                                      "show.png",
+                                                  "${ConstantVariable.pathImg}show.png",
+                                                ),
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                  ]))),
+
+                      // achievement
+                      Container(
+                          child: additionalModel.achieOpen
+                              ? Container(
+                                  height: (85 +
+                                      additionalModel.listAchie.length * 116),
+                                  width: width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 5),
+                                  // color: Colors.red,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      // color: Colors.green,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Column(children: [
+                                    // Certificate title
+                                    SizedBox(
+                                      width: 0.8 * width,
+                                      height: 43,
+                                      child: TextFormField(
+                                        readOnly: true,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            prefixIcon: Container(
+                                              width: 148,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  SizedBox(
+                                                    height: 35,
+                                                    width: 35,
+                                                    child: Image.asset(
+                                                        "${ConstantVariable.pathImg}achivements.png"),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 10,
+                                                  ),
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
+                                                    child: Text(
+                                                      "Achievements",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            suffixIcon: SizedBox(
+                                              height: 5,
+                                              width: 5,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    additionalModel.achieOpen =
+                                                        false;
+                                                  });
+                                                },
+                                                child: Image.asset(
+                                                  "${ConstantVariable.pathImg}hide.png",
+                                                ),
+                                              ),
+                                            )),
+                                      ),
+                                    ),
+                                    // Achievement inputs
+                                    isFixing
+                                        ? Container(
+                                            color: Colors.red,
+                                            height: (-145 +
+                                                additionalModel
+                                                        .listAchie.length *
+                                                    101),
+                                            child: ReorderableListView(
+                                              onReorder: ((oldIndex, newIndex) {
+                                                if (oldIndex < newIndex) {
+                                                  int end = newIndex - 1;
+                                                  Achivement startItem =
+                                                      additionalModel
+                                                          .listAchie[oldIndex];
+                                                  int i = 0;
+                                                  int local = oldIndex;
+                                                  do {
+                                                    additionalModel
+                                                            .listAchie[local] =
+                                                        additionalModel
+                                                            .listAchie[++local];
+                                                    i++;
+                                                  } while (i < end - oldIndex);
+                                                  additionalModel
+                                                          .listAchie[end] =
+                                                      startItem;
+                                                }
+                                                // dragging from bottom to top
+                                                else if (oldIndex > newIndex) {
+                                                  Achivement startItem =
+                                                      additionalModel
+                                                          .listAchie[oldIndex];
+                                                  for (int i = oldIndex;
+                                                      i > newIndex;
+                                                      i--) {
+                                                    additionalModel
+                                                            .listAchie[i] =
+                                                        additionalModel
+                                                            .listAchie[i - 1];
+                                                  }
+                                                  additionalModel
+                                                          .listAchie[newIndex] =
+                                                      startItem;
+                                                }
+                                                setState(() {});
+                                              }),
+                                              children: additionalModel
+                                                  .listAchie
+                                                  .map((e) => Container(
+                                                        key: Key(
+                                                            "${Random().nextInt(10000)}"),
+                                                        margin: const EdgeInsets
+                                                                .symmetric(
+                                                            horizontal: 20,
+                                                            vertical: 10),
+                                                        // color: Colors.red,
+                                                        decoration: const BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            20))),
+                                                        height: 50,
+                                                        child: Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Container(
+                                                              width:
+                                                                  width * 0.7,
+                                                              child: Row(
+                                                                children: [
+                                                                  const SizedBox(
+                                                                    width: 10,
+                                                                  ),
+                                                                  GestureDetector(
+                                                                    onTap: () {
+                                                                      // removeEduItem(e);
+                                                                    },
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          20,
+                                                                      width: 20,
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}remove.png"),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 20,
+                                                                  ),
+                                                                  Text(
+                                                                    e.nameAchieController
+                                                                        .text,
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Container(
+                                                              // width: width * 0.1,
+                                                              child: Row(
+                                                                children: [
+                                                                  GestureDetector(
+                                                                    onTap:
+                                                                        () {},
+                                                                    child:
+                                                                        SizedBox(
+                                                                      height:
+                                                                          20,
+                                                                      width: 20,
+                                                                      child: Image
+                                                                          .asset(
+                                                                              "${ConstantVariable.pathImg}reorder.png"),
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    width: 15,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ))
+                                                  .toList(),
+                                            ),
+                                          )
+                                        : Column(
+                                            children: [
+                                              Container(
+                                                height: (additionalModel
+                                                        .listAchie.length *
+                                                    116),
+                                                // color: Colors.red,
+                                                child: ListView.builder(
+                                                    itemCount: additionalModel
+                                                        .listAchie.length,
+                                                    itemBuilder:
+                                                        (context, indexAchie) {
+                                                      return Container(
+                                                        height: 96,
+                                                        margin:  EdgeInsets
+                                                                .fromLTRB(
+                                                            5,indexAchie==0 ?10 : 5, 5, 5),
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .fromLTRB(
+                                                                0, 5, 0, 5),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                const BorderRadius
+                                                                        .all(
+                                                                    Radius
+                                                                        .circular(
+                                                                            20)),
+                                                            color: Colors
+                                                                .grey[100]),
+                                                        child: Column(
+                                                          children: [
+                                                            // certificate input
+                                                            Container(
+                                                              height: 43,
+                                                              width: 320,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      100]),
+                                                              child: Center(
+                                                                child: SizedBox(
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller: additionalModel
+                                                                        .listAchie[
+                                                                            indexAchie]
+                                                                        .nameAchieController,
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                    decoration:
+                                                                        InputDecoration(
+                                                                      hintText:
+                                                                          "Achievement",
+                                                                      fillColor:
+                                                                          Colors
+                                                                              .grey[100],
+                                                                      filled:
+                                                                          true,
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            // date input
+                                                            Container(
+                                                              height: 43,
+                                                              width: 320,
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius: const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10)),
+                                                                  color: Colors
+                                                                          .grey[
+                                                                      100]),
+                                                              child: Center(
+                                                                child: SizedBox(
+                                                                  child:
+                                                                      TextFormField(
+                                                                    readOnly:
+                                                                        true,
+                                                                    controller: additionalModel
+                                                                        .listAchie[
+                                                                            indexAchie]
+                                                                        .dateAchieController,
+                                                                    style: const TextStyle(
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                    decoration: InputDecoration(
+                                                                        // suffix: Column(mainAxisAlignment:MainAxisAlignment.center,children: [SizedBox(height: 20,width: 20,child: Image.asset(ConstantVariable.pathImg+"calendar_light.png"),)],),
+                                                                        suffixIcon: GestureDetector(
+                                                                          child:
+                                                                              const Icon(Icons.calendar_month),
+                                                                          onTap:
+                                                                              (() {
+                                                                            showModalBottomSheet(
+                                                                                context: context,
+                                                                                builder: ((context) {
+                                                                                  return CupertinoDatePicker(
+                                                                                    mode: CupertinoDatePickerMode.date,
+                                                                                    onDateTimeChanged: (value) {
+                                                                                      if (value != null && value != additionalModel.listAchie[index].dateAchieController.text.trim())
+                                                                                        setState(() {
+                                                                                          additionalModel.listAchie[index].dateAchieController.text = DateFormat("dd-MM-yyyy").format(value);
+                                                                                        });
+                                                                                    },
+                                                                                    initialDateTime: DateTime.now(),
+                                                                                  );
+                                                                                }));
+                                                                          }),
+                                                                        ),
+                                                                        hintText: "Date",
+                                                                        fillColor: Colors.grey[100],
+                                                                        filled: true,
+                                                                        border: InputBorder.none),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }),
+                                              ),
+                                              //add Certificate
+                                              Center(
+                                                child: Container(
+                                                  margin: const EdgeInsets.only(
+                                                      top: 10),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        height: 20,
+                                                        width: 20,
+                                                        child: Image.asset(
+                                                            "${ConstantVariable.pathImg}icon_add.png"),
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 5,
+                                                      ),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            additionalModel
+                                                                .listAchie
+                                                                .add(Achivement(
+                                                                    TextEditingController(
+                                                                        text:
+                                                                            "Achivement ${Random().nextInt(10000)}"),
+                                                                    TextEditingController(
+                                                                        text:
+                                                                            "${DateTime.now()}"),
+                                                                    DateTime
+                                                                        .now()));
+                                                          });
+                                                        },
+                                                        child: const Text(
+                                                          "Add Achievement",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.blue,
+                                                              fontSize: 16),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          )
+                                  ]))
+                              : Container(
+                                  width: width,
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 20, vertical: 10),
+                                  // color: Colors.red,
+                                  decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(20))),
+                                  child: Column(children: [
+                                    SizedBox(
+                                      width: 0.8 * width,
+                                      height: 43,
+                                      child: TextFormField(
+                                        readOnly: true,
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                        decoration: InputDecoration(
+                                            border: InputBorder.none,
+                                            fillColor: Colors.white,
+                                            filled: true,
+                                            prefixIcon: Container(
+                                              width: 148,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  const Padding(
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            0, 0, 5, 0),
+                                                    child: Text(
+                                                      "Certificate",
+                                                      style: TextStyle(
+                                                          color: Colors.black,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                            ),
+                                            suffixIcon: SizedBox(
+                                              height: 5,
+                                              width: 5,
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  setState(() {
+                                                    additionalModel.achieOpen =
+                                                        true;
+                                                  });
+                                                },
+                                                child: Image.asset(
+                                                  "${ConstantVariable.pathImg}show.png",
                                                 ),
                                               ),
                                             )),
