@@ -1,14 +1,28 @@
+import 'package:cv_1/models/infomation_model.dart';
+import 'package:cv_1/modules/edit/components/additional/blocs/additional_bloc.dart';
+import 'package:cv_1/modules/edit/components/contact/blocs/contact_bloc.dart';
+import 'package:cv_1/modules/edit/components/education/blocs/education_bloc.dart';
+import 'package:cv_1/modules/edit/components/experience/blocs/experience_bloc.dart';
+import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_bloc.dart';
+import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_event.dart';
+import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_state.dart';
+import 'package:cv_1/modules/edit/components/skill/blocs/skill_bloc.dart';
+import 'package:cv_1/modules/edit/components/summary/blocs/summary_bloc.dart';
 import 'package:cv_1/modules/edit/edit.dart';
 import 'package:cv_1/modules/home/home.dart';
 import 'package:cv_1/modules/onboading/on_boarding.dart';
+import 'package:cv_1/observer/observer.dart';
 import 'package:cv_1/tests/test.dart';
 import 'package:cv_1/tests/test_dropdownlist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Bloc.observer = SimpleBlocObserver();
   runApp(const MyApp());
 }
+
 const MaterialColor white = const MaterialColor(
   0xFFFFFFFF,
   const <int, Color>{
@@ -30,14 +44,27 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: white,
-        // primaryColor: Colors.white
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<InformationBloc>(create: ((context) => InformationBloc())),
+        BlocProvider<ContactBloc>(create: ((context) => ContactBloc())),
+        BlocProvider<EducationBloc>(create: ((context) => EducationBloc())),
+        BlocProvider<ExperienceBloc>(create: ((context) => ExperienceBloc())),
+        BlocProvider<SkillBloc>(create: ((context) => SkillBloc())),
+        BlocProvider<SummaryBloc>(create: ((context) => SummaryBloc())),
+        BlocProvider<AdditionalBloc>(create: ((context) => AdditionalBloc())),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: white,
+          // primaryColor: Colors.white
+        ),
+        // home: TestInformation(),
+        // home: Test1(),
+        home: Edit(),
       ),
-      // home:  Edit(),
-      home:Test(),
       // https://api.flutter.dev/flutter/widgets/Focus-class.html
     );
   }

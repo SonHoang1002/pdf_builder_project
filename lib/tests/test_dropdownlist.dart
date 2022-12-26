@@ -138,6 +138,7 @@ Future<Uint8List> generateResume(PdfPageFormat format) async {
       ],
     ),
   );
+  
   return doc.save();
 }
 

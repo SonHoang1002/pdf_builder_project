@@ -2,13 +2,7 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cv_1/common/format_input.dart';
-import 'package:cv_1/modules/edit/components/addtional.dart';
-import 'package:cv_1/modules/edit/components/contact.dart';
-import 'package:cv_1/modules/edit/components/education.dart';
-import 'package:cv_1/modules/edit/components/experience.dart';
-import 'package:cv_1/modules/edit/components/infomation.dart';
-import 'package:cv_1/modules/edit/components/skill.dart';
-import 'package:cv_1/modules/edit/components/summary.dart';
+import 'components/all_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cv_1/common/const_var.dart';
 import 'package:cv_1/widgets/button_widget.dart';

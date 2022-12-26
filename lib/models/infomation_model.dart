@@ -1,7 +1,15 @@
-import 'package:flutter/cupertino.dart';
 
-class InformationUrlModel {
-  TextEditingController url;
+import 'package:flutter/material.dart';
 
-  InformationUrlModel({required this.url});
+
+class InformationModel {
+  final TextEditingController fullName;
+  final TextEditingController jobTitle;
+  final TextEditingController date;
+  final List<TextEditingController> listUrl;
+  InformationModel(
+      {required this.fullName,
+      required this.jobTitle,
+      required this.date,
+      required this.listUrl});
 }

@@ -45,6 +45,7 @@ dependencies:
   flutter_cupertino_date_picker: ^1.0.26+2
   pdf: ^3.8.4
   flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
   printing: ^5.9.3
 
 dev_dependencies:
