@@ -3,6 +3,7 @@ import 'package:cv_1/models/summary_model.dart';
 import 'package:cv_1/modules/edit/components/summary/blocs/summary_bloc.dart';
 import 'package:cv_1/modules/edit/components/summary/blocs/summary_event.dart';
 import 'package:cv_1/modules/edit/components/summary/blocs/summary_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +27,7 @@ class _SummaryState extends State<Summary> {
     return BlocBuilder<SummaryBloc, SummaryState>(builder: ((context, state) {
       final SummaryModel _summaryModel =
           BlocProvider.of<SummaryBloc>(context).state.modelSummary;
+      SummaryRepo().setSummaryRepo(_summaryModel);
       return Container(
         height: 515,
         child: Column(
@@ -65,7 +67,12 @@ class _SummaryState extends State<Summary> {
                         minLines: 10,
                         maxLines: 10,
                         expands: false,
-                        onChanged: ((value) => context.read<SummaryBloc>().add(UpdateSummaryEvent(_summaryModel))),
+                        onChanged: (value) {
+                          context
+                              .read<SummaryBloc>()
+                              .add(UpdateSummaryEvent(_summaryModel));
+                          SummaryRepo().setSummaryRepo(_summaryModel);
+                        },
                         style: TextStyle(fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
                             border: InputBorder.none,

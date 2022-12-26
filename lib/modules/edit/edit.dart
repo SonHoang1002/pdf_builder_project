@@ -2,10 +2,13 @@ import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cv_1/common/format_input.dart';
+import 'package:cv_1/modules/export/preview_cv.dart';
+import 'package:cv_1/tests/test_dropdownlist.dart';
+import 'package:pdf/pdf.dart';
+import 'package:printing/printing.dart';
 import 'components/all_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:cv_1/common/const_var.dart';
-import 'package:cv_1/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -58,23 +61,29 @@ class _EditState extends State<Edit> {
                       style: TextStyle(
                           fontSize: 17, fontWeight: FontWeight.bold)))),
           actions: [
-            Row(children: const [
-              SizedBox(
-                width: 30,
-              ),
-              Center(
-                child: Text(
-                  "Preview",
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold),
+            GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => PriviewCV()));
+              },
+              child: Row(children: const [
+                SizedBox(
+                  width: 30,
                 ),
-              ),
-              SizedBox(
-                width: 10,
-              )
-            ])
+                Center(
+                  child: Text(
+                    "Preview",
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                )
+              ]),
+            )
           ],
           leading: Padding(
               padding: const EdgeInsets.all(16.0),
@@ -536,7 +545,7 @@ class _EditState extends State<Edit> {
                                 ),
                               ),
                             ),
-                          
+
                             //empty
                             Container(
                               margin: const EdgeInsets.fromLTRB(0, 0, 20, 10),
@@ -562,7 +571,7 @@ class _EditState extends State<Edit> {
                                                 : Container(),
 
                     // navigate
-                    inPage ==7 ? Container() :buildButtonBottom(),
+                    inPage == 7 ? Container() : buildButtonBottom(),
                     // SizedBox(height: 7,)
                   ],
                 ),

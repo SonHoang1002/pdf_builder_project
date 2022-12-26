@@ -1,10 +1,12 @@
 import 'dart:io';
 
 import 'package:cv_1/common/const_var.dart';
+import 'package:cv_1/common/test_save_value.dart';
 import 'package:cv_1/models/infomation_model.dart';
 import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_bloc.dart';
 import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_event.dart';
 import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -39,6 +41,7 @@ class _InfomationState extends State<Infomation> {
         builder: ((context, state) {
       final InformationModel informationModel =
           BlocProvider.of<InformationBloc>(context).state.informationModel;
+          InformationRepo().setInformationRepo(informationModel);
       return Container(
         height: 515,
         child: ListView(
@@ -147,6 +150,7 @@ class _InfomationState extends State<Infomation> {
                             onChanged: ((value) {
                               context.read<InformationBloc>().add(
                                   UpdateInformationEvent(informationModel));
+                                  InformationRepo().setInformationRepo(informationModel);
                             }),
                             style: TextStyle(fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
@@ -181,6 +185,7 @@ class _InfomationState extends State<Infomation> {
                             onChanged: ((value) {
                               context.read<InformationBloc>().add(
                                   UpdateInformationEvent(informationModel));
+                                  InformationRepo().setInformationRepo(informationModel);
                             }),
                             style: TextStyle(fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
@@ -215,6 +220,7 @@ class _InfomationState extends State<Infomation> {
                             onChanged: ((value) {
                               context.read<InformationBloc>().add(
                                   UpdateInformationEvent(informationModel));
+                                  InformationRepo().setInformationRepo(informationModel);
                             }),
                             style: TextStyle(fontWeight: FontWeight.bold),
                             decoration: InputDecoration(

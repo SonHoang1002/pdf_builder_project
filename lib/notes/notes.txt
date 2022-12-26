@@ -1,4 +1,48 @@
 
+
+information Page
+  - Full name
+  - Job title
+  - date of birth
+  - Url
+contact Page
+  - phone numer
+  - email
+  - address
+education 
+  - university
+  - degree
+  - graduation year
+  - achievement
+experience page 
+  - job title
+  - work period
+  - description
+skill
+  - skill
+summary page
+  - summary statement
+additinal page
+  - language
+    - name
+    - level
+  - ceritficate
+    - certificate name
+    - date certificate
+  - achivement
+    - achivement name
+    - date achivement
+
+
+
+
+
+
+
+
+
+
+
     // showDatePicker(
     //                                     context: context,
     //                                     initialDate: DateTime.now(),

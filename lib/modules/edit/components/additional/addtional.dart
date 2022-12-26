@@ -6,6 +6,7 @@ import 'package:cv_1/models/additional_model.dart';
 import 'package:cv_1/modules/edit/components/additional/blocs/additional_bloc.dart';
 import 'package:cv_1/modules/edit/components/additional/blocs/additional_event.dart';
 import 'package:cv_1/modules/edit/components/additional/blocs/additional_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,6 +51,7 @@ class _AdditionalState extends State<Additional> {
         builder: ((context, state) {
       final AdditionalModel additionalModel =
           BlocProvider.of<AdditionalBloc>(context).state.additionalModel;
+      AdditionalRepo().setAdditionalRepo(additionalModel);
       return Container(
         height: (660),
         // color: Colors.yellow,
@@ -185,6 +187,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}hide.png",
@@ -248,6 +253,9 @@ class _AdditionalState extends State<Additional> {
                                                       .add(
                                                           UpdateAdditionalEvent(
                                                               additionalModel));
+                                                  AdditionalRepo()
+                                                      .setAdditionalRepo(
+                                                          additionalModel);
                                                 }),
                                                 children:
                                                     additionalModel.listLang
@@ -288,6 +296,7 @@ class _AdditionalState extends State<Additional> {
                                                                               () {
                                                                             // removeEduItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
+                                                                            AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
                                                                           child:
                                                                               SizedBox(
@@ -401,11 +410,12 @@ class _AdditionalState extends State<Additional> {
                                                                           .listLang[
                                                                               indexLang]
                                                                           .language,
-                                                                      onChanged: ((value) => context
-                                                                          .read<
-                                                                              AdditionalBloc>()
-                                                                          .add(UpdateAdditionalEvent(
-                                                                              additionalModel))),
+                                                                      onChanged:
+                                                                          (value) {
+                                                                        context
+                                                                            .read<AdditionalBloc>()
+                                                                            .add(UpdateAdditionalEvent(additionalModel));
+                                                                      },
                                                                       style: const TextStyle(
                                                                           fontWeight:
                                                                               FontWeight.bold),
@@ -466,6 +476,8 @@ class _AdditionalState extends State<Additional> {
                                                                         context
                                                                             .read<AdditionalBloc>()
                                                                             .add(UpdateAdditionalEvent(additionalModel));
+                                                                        AdditionalRepo()
+                                                                            .setAdditionalRepo(additionalModel);
                                                                       }),
                                                                       style: const TextStyle(
                                                                           fontWeight:
@@ -531,6 +543,9 @@ class _AdditionalState extends State<Additional> {
                                                                     AdditionalBloc>()
                                                                 .add(UpdateAdditionalEvent(
                                                                     additionalModel));
+                                                            AdditionalRepo()
+                                                                .setAdditionalRepo(
+                                                                    additionalModel);
                                                           },
                                                           child: const Text(
                                                             "Add Language",
@@ -603,6 +618,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}show.png",
@@ -686,6 +704,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}hide.png",
@@ -750,6 +771,9 @@ class _AdditionalState extends State<Additional> {
                                                       .add(
                                                           UpdateAdditionalEvent(
                                                               additionalModel));
+                                                  AdditionalRepo()
+                                                      .setAdditionalRepo(
+                                                          additionalModel);
                                                 }),
                                                 children:
                                                     additionalModel.listCerti
@@ -790,6 +814,7 @@ class _AdditionalState extends State<Additional> {
                                                                               () {
                                                                             // removeEduItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
+                                                                            AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
                                                                           child:
                                                                               SizedBox(
@@ -907,6 +932,8 @@ class _AdditionalState extends State<Additional> {
                                                                         context
                                                                             .read<AdditionalBloc>()
                                                                             .add(UpdateAdditionalEvent(additionalModel));
+                                                                        AdditionalRepo()
+                                                                            .setAdditionalRepo(additionalModel);
                                                                       },
                                                                       style: const TextStyle(
                                                                           fontWeight:
@@ -952,6 +979,8 @@ class _AdditionalState extends State<Additional> {
                                                                         context
                                                                             .read<AdditionalBloc>()
                                                                             .add(UpdateAdditionalEvent(additionalModel));
+                                                                        AdditionalRepo()
+                                                                            .setAdditionalRepo(additionalModel);
                                                                       },
                                                                       style: const TextStyle(
                                                                           fontWeight:
@@ -1032,6 +1061,9 @@ class _AdditionalState extends State<Additional> {
                                                                     AdditionalBloc>()
                                                                 .add(UpdateAdditionalEvent(
                                                                     additionalModel));
+                                                            AdditionalRepo()
+                                                                .setAdditionalRepo(
+                                                                    additionalModel);
                                                           },
                                                           child: const Text(
                                                             "Add Certificate",
@@ -1104,6 +1136,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}show.png",
@@ -1186,6 +1221,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}hide.png",
@@ -1250,6 +1288,9 @@ class _AdditionalState extends State<Additional> {
                                                       .add(
                                                           UpdateAdditionalEvent(
                                                               additionalModel));
+                                                  AdditionalRepo()
+                                                      .setAdditionalRepo(
+                                                          additionalModel);
                                                 }),
                                                 children:
                                                     additionalModel.listAchie
@@ -1290,6 +1331,7 @@ class _AdditionalState extends State<Additional> {
                                                                               () {
                                                                             // removeEduItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
+                                                                            AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
                                                                           child:
                                                                               SizedBox(
@@ -1407,6 +1449,8 @@ class _AdditionalState extends State<Additional> {
                                                                         context
                                                                             .read<AdditionalBloc>()
                                                                             .add(UpdateAdditionalEvent(additionalModel));
+                                                                        AdditionalRepo()
+                                                                            .setAdditionalRepo(additionalModel);
                                                                       },
                                                                       style: const TextStyle(
                                                                           fontWeight:
@@ -1452,6 +1496,8 @@ class _AdditionalState extends State<Additional> {
                                                                         context
                                                                             .read<AdditionalBloc>()
                                                                             .add(UpdateAdditionalEvent(additionalModel));
+                                                                        AdditionalRepo()
+                                                                            .setAdditionalRepo(additionalModel);
                                                                       },
                                                                       style: const TextStyle(
                                                                           fontWeight:
@@ -1532,6 +1578,9 @@ class _AdditionalState extends State<Additional> {
                                                                     AdditionalBloc>()
                                                                 .add(UpdateAdditionalEvent(
                                                                     additionalModel));
+                                                            AdditionalRepo()
+                                                                .setAdditionalRepo(
+                                                                    additionalModel);
                                                           },
                                                           child: const Text(
                                                             "Add Achievement",
@@ -1604,6 +1653,9 @@ class _AdditionalState extends State<Additional> {
                                                         .read<AdditionalBloc>()
                                                         .add(UpdateAdditionalEvent(
                                                             additionalModel));
+                                                    AdditionalRepo()
+                                                        .setAdditionalRepo(
+                                                            additionalModel);
                                                   },
                                                   child: Image.asset(
                                                     "${ConstantVariable.pathImg}show.png",

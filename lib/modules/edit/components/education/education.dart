@@ -4,6 +4,7 @@ import 'package:cv_1/models/education_model.dart';
 import 'package:cv_1/modules/edit/components/education/blocs/education_bloc.dart';
 import 'package:cv_1/modules/edit/components/education/blocs/education_event.dart';
 import 'package:cv_1/modules/edit/components/education/blocs/education_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -54,6 +55,7 @@ class _EducationState extends State<Education> {
     return BlocBuilder<EducationBloc, EducationState>(
         builder: ((context, state) {
       listEdu = BlocProvider.of<EducationBloc>(context).state.model;
+      EducationRepo().setEducationRepo(listEdu);
       return Container(
         height: 515,
         margin: const EdgeInsets.only(top: 5),
@@ -127,6 +129,7 @@ class _EducationState extends State<Education> {
                         context
                             .read<EducationBloc>()
                             .add(UpdateEducationEvent(listEdu));
+                            // EducationRepo().setEducationRepo(listEdu);
                       }),
                       children: listEdu
                           .map((e) => Container(
@@ -226,6 +229,7 @@ class _EducationState extends State<Education> {
                                           // onChanged: (value) {
                                           //   context.read<EducationBloc>().add(
                                           //       UpdateEducationEvent(listEdu));
+                                          // EducationRepo().setEducationRepo(listEdu);
                                           // },
                                           readOnly: true,
                                           style: const TextStyle(
@@ -295,6 +299,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
+                                                // EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
@@ -333,6 +338,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
+                                                // EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
@@ -371,6 +377,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
+                                                // EducationRepo().setEducationRepo(listEdu);
                                           },
                                           readOnly: true,
                                           style: const TextStyle(
@@ -431,6 +438,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
+                                                // EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -572,6 +580,7 @@ class _EducationState extends State<Education> {
                     context
                         .read<EducationBloc>()
                         .add(UpdateEducationEvent(listEdu));
+                        // EducationRepo().setEducationRepo(listEdu);
                   },
                   child: const Text(
                     "Add Education",
@@ -637,6 +646,7 @@ class _EducationState extends State<Education> {
                                   context
                                       .read<EducationBloc>()
                                       .add(UpdateEducationEvent(listEdu));
+                                      // EducationRepo().setEducationRepo(listEdu);
                                 },
                                 child: Text(
                                   "Done",

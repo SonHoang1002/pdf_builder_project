@@ -4,6 +4,7 @@ import 'package:cv_1/models/experience_model.dart';
 import 'package:cv_1/modules/edit/components/experience/blocs/experience_bloc.dart';
 import 'package:cv_1/modules/edit/components/experience/blocs/experience_event.dart';
 import 'package:cv_1/modules/edit/components/experience/blocs/experience_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,6 +63,7 @@ class _ExperienceState extends State<Experience> {
           //  late List<ExperienceModel> list = context.watch<ExperienceBloc>().state.list;
           // print("${list[0].job.text} - ${list[0].desc.text}- ${list.length}");
           listExp = BlocProvider.of<ExperienceBloc>(context).state.list;
+          ExperienceRepo().setExperienceRepo(listExp);
           
           return Container(
             height: 515,
@@ -136,6 +138,7 @@ class _ExperienceState extends State<Experience> {
                             context
                                 .read<ExperienceBloc>()
                                 .add(UpdateExperienceEvent(listExp));
+                                ExperienceRepo().setExperienceRepo(listExp);
                           }),
                           children: listExp
                               .map((e) => Container(
@@ -599,6 +602,7 @@ class _ExperienceState extends State<Experience> {
                         context
                             .read<ExperienceBloc>()
                             .add(UpdateExperienceEvent(listExp));
+                            ExperienceRepo().setExperienceRepo(listExp);
                       },
                       child: const Text(
                         "Add Experience",
@@ -664,6 +668,7 @@ class _ExperienceState extends State<Experience> {
                                   context
                                       .read<ExperienceBloc>()
                                       .add(UpdateExperienceEvent(listExp));
+                                      ExperienceRepo().setExperienceRepo(listExp);
                                 },
                                 child: Text(
                                   "Done",

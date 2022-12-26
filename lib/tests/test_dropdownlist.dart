@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'dart:typed_data';
 
+import 'package:cv_1/common/test_save_value.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -35,13 +37,15 @@ Future<Uint8List> generateResume(PdfPageFormat format) async {
                     child: pw.Column(
                       crossAxisAlignment: pw.CrossAxisAlignment.start,
                       children: <pw.Widget>[
-                        pw.Text('Parnella Charlesbois',
+                        //
+                        pw.Text( InformationRepo().getInformationRepo.fullName.text.trim(),
+                        //
                             textScaleFactor: 2,
                             style: pw.Theme.of(context)
                                 .defaultTextStyle
                                 .copyWith(fontWeight: pw.FontWeight.bold)),
                         pw.Padding(padding: const pw.EdgeInsets.only(top: 10)),
-                        pw.Text('Electrotyper',
+                        pw.Text(InformationRepo().getInformationRepo.jobTitle.text.trim(),
                             textScaleFactor: 1.2,
                             style: pw.Theme.of(context)
                                 .defaultTextStyle
@@ -56,7 +60,9 @@ Future<Uint8List> generateResume(PdfPageFormat format) async {
                             pw.Column(
                               crossAxisAlignment: pw.CrossAxisAlignment.start,
                               children: <pw.Widget>[
-                                pw.Text('568 Port Washington Road'),
+                                // pw.Text(InformationRepo().getInformationRepo.fullName.text.trim()),
+                                // pw.Text(ContactRepo().getContactRepo.address.text.trim()),
+                                pw.Text(ContactRepo().getContactRepo.address.text.trim()),
                                 pw.Text('Nordegg, AB T0M 2H0'),
                                 pw.Text('Canada, ON'),
                               ],

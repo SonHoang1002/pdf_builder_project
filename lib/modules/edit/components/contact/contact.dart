@@ -6,6 +6,7 @@ import 'package:cv_1/models/contact_model.dart';
 import 'package:cv_1/modules/edit/components/contact/blocs/contact_bloc.dart';
 import 'package:cv_1/modules/edit/components/contact/blocs/contact_event.dart';
 import 'package:cv_1/modules/edit/components/contact/blocs/contact_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +39,7 @@ class _ContactState extends State<Contact> {
         builder: ((context, state) {
           late ContactModel contact =
               BlocProvider.of<ContactBloc>(context).state.contactModel;
+          ContactRepo().setContactRepo(contact);
           return Container(
             height: 515,
             margin: EdgeInsets.only(top: 20),
@@ -87,6 +89,8 @@ class _ContactState extends State<Contact> {
                                   context
                                       .read<ContactBloc>()
                                       .add(UpdateContactEvent(contact));
+                                      ContactRepo().setContactRepo(contact);
+                                      
                                 }),
                                 inputFormatters: [
                                   FilteringTextInputFormatter.digitsOnly,
@@ -130,6 +134,8 @@ class _ContactState extends State<Contact> {
                                   context
                                       .read<ContactBloc>()
                                       .add(UpdateContactEvent(contact));
+                                      ContactRepo().setContactRepo(contact);
+                                      
                                 }),
                                 style: TextStyle(fontWeight: FontWeight.bold),
                                 decoration: InputDecoration(
@@ -187,6 +193,8 @@ class _ContactState extends State<Contact> {
                             context
                                 .read<ContactBloc>()
                                 .add(UpdateContactEvent(contact));
+                                ContactRepo().setContactRepo(contact);
+                                
                           }),
                           style: TextStyle(fontWeight: FontWeight.bold),
                           decoration: InputDecoration(

@@ -4,6 +4,7 @@ import 'package:cv_1/models/skill_model.dart';
 import 'package:cv_1/modules/edit/components/skill/blocs/skill_bloc.dart';
 import 'package:cv_1/modules/edit/components/skill/blocs/skill_event.dart';
 import 'package:cv_1/modules/edit/components/skill/blocs/skill_state.dart';
+import 'package:cv_1/repository/repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -50,6 +51,7 @@ class _SkillState extends State<Skill> {
     return BlocBuilder<SkillBloc, SkillState>(builder: ((context, state) {
       listSkill =
           BlocProvider.of<SkillBloc>(context).state.listSkill;
+          SkillRepo().setSkillRepo(listSkill);
       // print(list[0].skill.text);
       return Container(
         height: 515,
@@ -121,6 +123,7 @@ class _SkillState extends State<Skill> {
                           }
                           setState(() {});
                           context.read<SkillBloc>().add(UpdateSkill(listSkill));
+                          SkillRepo().setSkillRepo(listSkill);
                         }),
                         children: listSkill
                             .map((e) => Container(
@@ -214,6 +217,7 @@ class _SkillState extends State<Skill> {
                                     context
                                         .read<SkillBloc>()
                                         .add(UpdateSkill(listSkill));
+                                        SkillRepo().setSkillRepo(listSkill);
                                   },
                                   style: TextStyle(fontWeight: FontWeight.bold),
                                   decoration: InputDecoration(
@@ -254,6 +258,7 @@ class _SkillState extends State<Skill> {
                           SkillModel(skill: TextEditingController(text: "")));
                     });
                     context.read<SkillBloc>().add(UpdateSkill(listSkill));
+                    SkillRepo().setSkillRepo(listSkill);
                   },
                   child: const Text(
                     "Add SKill",

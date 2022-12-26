@@ -1,5 +1,5 @@
 import 'package:cv_1/common/const_var.dart';
-import 'package:cv_1/widgets/button_widget.dart';
+import 'package:cv_1/common/widgets/button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
