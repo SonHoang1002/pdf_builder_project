@@ -129,7 +129,7 @@ class _EducationState extends State<Education> {
                         context
                             .read<EducationBloc>()
                             .add(UpdateEducationEvent(listEdu));
-                            // EducationRepo().setEducationRepo(listEdu);
+                            EducationRepo().setEducationRepo(listEdu);
                       }),
                       children: listEdu
                           .map((e) => Container(
@@ -299,7 +299,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
-                                                // EducationRepo().setEducationRepo(listEdu);
+                                                EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
@@ -338,7 +338,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
-                                                // EducationRepo().setEducationRepo(listEdu);
+                                                EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
@@ -377,7 +377,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
-                                                // EducationRepo().setEducationRepo(listEdu);
+                                                EducationRepo().setEducationRepo(listEdu);
                                           },
                                           readOnly: true,
                                           style: const TextStyle(
@@ -438,7 +438,7 @@ class _EducationState extends State<Education> {
                                           onChanged: (value) {
                                             context.read<EducationBloc>().add(
                                                 UpdateEducationEvent(listEdu));
-                                                // EducationRepo().setEducationRepo(listEdu);
+                                                EducationRepo().setEducationRepo(listEdu);
                                           },
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold,
@@ -580,7 +580,7 @@ class _EducationState extends State<Education> {
                     context
                         .read<EducationBloc>()
                         .add(UpdateEducationEvent(listEdu));
-                        // EducationRepo().setEducationRepo(listEdu);
+                        EducationRepo().setEducationRepo(listEdu);
                   },
                   child: const Text(
                     "Add Education",
@@ -646,7 +646,7 @@ class _EducationState extends State<Education> {
                                   context
                                       .read<EducationBloc>()
                                       .add(UpdateEducationEvent(listEdu));
-                                      // EducationRepo().setEducationRepo(listEdu);
+                                      EducationRepo().setEducationRepo(listEdu);
                                 },
                                 child: Text(
                                   "Done",

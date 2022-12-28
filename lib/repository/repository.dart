@@ -64,7 +64,7 @@ class ExperienceRepo {
 
 class SkillRepo {
   static List<SkillModel> listSkill = [
-    SkillModel(skill: TextEditingController(text: ""))
+    SkillModel(skill: TextEditingController(text: "init pdf skill"))
   ];
   setSkillRepo(List<SkillModel> listSkill1) {
     listSkill = listSkill1;
@@ -75,7 +75,7 @@ class SkillRepo {
 
 class SummaryRepo {
   static SummaryModel listSummary = 
-    SummaryModel(summaryController: TextEditingController(text: ""))
+    SummaryModel(summaryController: TextEditingController(text: "init pdf summary"))
   ;
   setSummaryRepo(SummaryModel listSummary1) {
     listSummary = listSummary1;

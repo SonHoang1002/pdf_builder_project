@@ -51,7 +51,7 @@ class _SkillState extends State<Skill> {
     return BlocBuilder<SkillBloc, SkillState>(builder: ((context, state) {
       listSkill =
           BlocProvider.of<SkillBloc>(context).state.listSkill;
-          SkillRepo().setSkillRepo(listSkill);
+          // SkillRepo().setSkillRepo(listSkill);
       // print(list[0].skill.text);
       return Container(
         height: 515,
