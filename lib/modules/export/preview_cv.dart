@@ -68,49 +68,55 @@ Future<Uint8List> generateResume1(PdfPageFormat format) async {
 
   doc.addPage(
     pw.MultiPage(
-        pageTheme: pageTheme, build: (pw.Context context) => _getAny(format)),
+        pageTheme: pageTheme,
+        // pageTheme: pw.PageTheme(),
+        // pageFormat: PdfPageFormat.a4,
+        // theme: pw.ThemeData(),
+        build: (pw.Context context) => _getAny(format)),
   );
-
-// doc.addPage(page)
   return doc.save();
 }
 
 List<pw.Widget> _getAny(PdfPageFormat format) {
-  // final pageTheme = await _myPageTheme(format);
   return [
-    // pw.Column(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
-    //   pw.Container(
-    //       color: PdfColors.red, height: setHeighForAvatar(), width: 150),
-    //   ContactPDFView1(height: setHeighForContact(), width: format.width),
-    // ]),
-    // SkillPDFView1(height: setHeighForSkill(), width: format.width),
-    // pw.Wrap(children: [
-    //   additional.listLang.length == 0
-    //       ? pw.Container()
-    //       : pw.Container(
-    //           // color: PdfColors.green,
-    //           // height: setHeighAddtional(
-    //           //     "Language", additional),
-    //           child: buildLanguage1(additional, format.width)),
-    //   // certificate
-    //   additional.listCerti.length == 0
-    //       ? pw.Container()
-    //       : pw.Container(
-    //           color: PdfColors.green,
-    //           // height: setHeighAddtional(
-    //           //     "Certificate", additional),
-    //           child: buildCetificate1(additional, format.width)),
-      pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: ConstantVar.listContent.map((e) {
-            return e;
-          }).toList())
-      // achivement
-      // additional.listAchie.length == 0
-      //     ? pw.Container()
-      //     : pw.Container(
-      //         child: buildAchivement1(additional,format.width)),
-    // ])
+    pw.Partitions(
+      children: [
+        pw.Partition(
+            width: 200,
+            child: pw.Column(children: [
+              pw.Center(
+                child: pw.Container(
+                  color: PdfColors.red,
+                  height: 150,
+                  width: 150,
+                ),
+              ),
+              ContactPDFView1(height: 200, width: 200),
+              SkillPDFView1(height: 200, width: 200),
+              pw.Wrap(children: [
+                additional.listLang.length == 0
+                    ? pw.Container()
+                    : buildLanguage1(additional, format.width),
+                // certificate
+                additional.listCerti.length == 0
+                    ? pw.Container()
+                    : buildCetificate1(additional, format.width),
+                // achivement
+                additional.listAchie.length == 0
+                    ? pw.Container()
+                    : buildAchivement1(additional, format.width),
+              ])
+              // AdditionalPDFView1()
+            ])),
+        pw.Partition(
+            width: 292,
+            child: pw.Column(children: [
+              InformationPDFView1(height: format.height, width: format.width),
+              ExperiencePDFView1(height: format.height, width: format.width),
+              EducationPDFView1(height: format.height, width: format.width)
+            ])),
+      ],
+    ),
   ];
 }
 //  pw.Wrap(children: [
@@ -217,7 +223,7 @@ List<pw.Widget> _getAny(PdfPageFormat format) {
 //         ])
 
 Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
-  final bgShape = await rootBundle.loadString('assets/images/resume.svg');
+  final bgShape = await rootBundle.loadString('assets/images/black_image.svg');
   return pw.PageTheme(
     pageFormat: PdfPageFormat.a4,
     theme: pw.ThemeData.withFont(
@@ -246,81 +252,4 @@ Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
       );
     },
   );
-}
-
-
-
-double setHeighForAvatar() {
-  return 150;
-}
-
-double setHeighForContact() {
-  final ContactModel contactModel = ContactRepo().getContactRepo;
-  final heightContactTitle = 30;
-  final heightEmail = (contactModel.email.text.trim().length / 13).floor() * 20;
-  final heightPhone = 30;
-  final heightAddress =
-      (contactModel.address.text.trim().length / 13).floor() * 20;
-  return (heightContactTitle + heightAddress + heightPhone + heightPhone)
-      .toDouble();
-}
-
-double setHeighForSkill() {
-  final List<SkillModel> listSkill = SkillRepo().getSkillRepo;
-  final heightSkillTitle = 10;
-  final int numberOfSkillModel = listSkill.length;
-  int numberOfSkillLine = 0;
-  listSkill.forEach((element) {
-    numberOfSkillLine += (element.skill.text.trim().length / 13).floor();
-  });
-  return (heightSkillTitle + (numberOfSkillLine + numberOfSkillModel) * 15)
-      .toDouble();
-}
-
-double setHeighAddtional(String nameList, AdditionalModel additional) {
-  int numberOfLine = 0;
-  final heightSkillTitle = 30;
-  if (nameList == "Language") {
-    int numberOfLangModel = additional.listLang.length;
-    additional.listLang.forEach((element) {
-      if (element.language.text.trim().length +
-              element.level.text.trim().length >
-          15) {
-        numberOfLine += 1;
-      }
-    });
-    numberOfLine = numberOfLine + numberOfLangModel;
-    return (numberOfLine * 30 + heightSkillTitle).toDouble();
-  } else if (nameList == "Certificate") {
-    return (additional.listCerti.length * 2 * 30 + heightSkillTitle).toDouble();
-  }
-  return (additional.listAchie.length * 2 * 15 + heightSkillTitle).toDouble();
-}
-
-checkTotalLine() {
-  //contact max =27 lines
-  final lineOfContactTitle = 1;
-  final lineOfEmailContact =
-      (contactModel.email.text.trim().length / 22).floor();
-  final lineOfPhoneContact = 1;
-  final lineOfAddressContact =
-      (contactModel.address.text.trim().length / 20).floor();
-  //language total  contact + language = 18 of content
-  final lineOfLanguageTitle = 1;
-  final lineOfLanguageContent = additional.listAchie.length;
-  additional.listLang.forEach((element) {
-    if (element.language.text.trim().length + element.level.text.trim().length >
-        20) {
-      lineOfLanguageContent + 1;
-    }
-  });
-  // lineOfLanguageContent + lineOfAddressContact+lineOfPhoneContact+lineOfEmailContact <18;
-  //Certificate
-  final lineOfCertificateTitle = 1;
-  final lineOfCertificateContent = additional.listCerti.length * 2;
-
-  //Achivement cer + achie = 17 content
-  final lineOfAchivementTitle = 1;
-  final lineOfAchivementContent = additional.listAchie.length * 2;
-  // lineOfAchivementContent+ lineOfCertificateContent <17
 }

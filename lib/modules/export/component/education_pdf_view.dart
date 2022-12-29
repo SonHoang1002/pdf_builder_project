@@ -12,59 +12,57 @@ class EducationPDFView1 extends pw.StatelessWidget {
   @override
   pw.Widget build(pw.Context context) {
     final List<EducationModel> listEdu = EducationRepo().getEducationRepo;
-    listEdu.forEach((element) {
-      print(
-          "${element.university.text} +${element.degree.text} + ${element.startTime} + ${element.endTime}");
-    });
-    return pw.Container(
-        margin: const pw.EdgeInsets.fromLTRB(0, 10, 0, 20),
-        height: 200,
-        child: pw.Column(children: [
-          pw.Row(children: [
-            pw.Container(
-                height: 20,
-                width: 20,
-                decoration: pw.BoxDecoration(
-                    color: PdfColors.black,
-                    border: pw.Border.all(color: PdfColors.blue, width: 5))),
-            pw.SizedBox(width: 10),
-            pw.Container(
-                margin: const pw.EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: pw.Text("Educations",
-                    style: pw.TextStyle(
-                        fontSize: 21,
-                        color: PdfColors.red,
-                        fontWeight: pw.FontWeight.bold))),
-          ]),
-          pw.Column(
-              children: listEdu.map((e) {
-            return pw.Container(
-                margin: const pw.EdgeInsets.fromLTRB(0, 0, 0, 10),
-                child: pw.Column(children: [
-                  pw.Container(
-                      margin: const pw.EdgeInsets.fromLTRB(0, 0, 0, 5),
-                      child: pw.Row(children: [pw.Text("${e.university.text} - ${e.degree.text}",
-                          textAlign: pw.TextAlign.left,
-                          style: const pw.TextStyle(
-                            fontSize: 17,
-                            color: PdfColors.white,
-                            // fontWeight: pw.FontWeight.bold
-                          ))])),
-                  pw.Container(
-                      margin: const pw.EdgeInsets.fromLTRB(0, 0, 0, 5),
-                      child: pw.Wrap(children: [
-                        pw.Row(children: [pw.Text("${e.startTime.month}/${e.startTime.year} -${e.endTime.month}/${e.endTime.year}",
-                        // pw.Text("${e.grad.text}",
-                            textAlign: pw.TextAlign.left,
-                            style: const pw.TextStyle(
-                              // fontSize: 17,
-                              color: PdfColors.white,
+
+    return pw.Column(children: [
+      pw.Row(children: [
+        pw.Container(
+            height: 20,
+            width: 20,
+            decoration: pw.BoxDecoration(
+                color: PdfColors.black,
+                border: pw.Border.all(color: PdfColors.blue, width: 5))),
+        pw.SizedBox(width: 10),
+        pw.Container(
+            margin: const pw.EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: pw.Text("Educations",
+                style: pw.TextStyle(
+                    fontSize: 21,
+                    color: PdfColors.red,
+                    fontWeight: pw.FontWeight.bold))),
+      ]),
+      pw.Column(
+          children: listEdu.map((e) {
+        return pw.Container(
+            margin: const pw.EdgeInsets.fromLTRB(0, 0, 0, 10),
+            child: pw.Column(children: [
+              pw.Container(
+                  margin: const pw.EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: pw.Row(children: [
+                    pw.Flexible(
+                        flex: 20,
+                        child: pw.Text(
+                            "${e.university.text} - ${e.degree.text}",
+                            style: pw.TextStyle(
+                                color: PdfColors.grey,
+                                fontSize: 13,
+                                fontWeight: pw.FontWeight.bold)))
+                  ])),
+              pw.Container(
+                  margin: const pw.EdgeInsets.fromLTRB(0, 5, 0, 10),
+                  child: pw.Row(children: [
+                    pw.Flexible(
+                        flex: 20,
+                        child: pw.Text(
+                            "${e.startTime.month}/${e.startTime.year} -${e.endTime.month}/${e.endTime.year}",
+                            style: pw.TextStyle(
+                              color: PdfColors.grey,
+                              // fontSize: 13,
                               // fontWeight: pw.FontWeight.bold
-                            )),])
-                      ], direction: pw.Axis.horizontal)),
-                ]));
-          }).toList())
-        ]));
+                            )))
+                  ])),
+            ]));
+      }).toList())
+    ]);
   }
 }
 //
