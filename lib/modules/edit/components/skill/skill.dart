@@ -149,7 +149,7 @@ class _SkillState extends State<Skill> {
                                             ),
                                             GestureDetector(
                                               onTap: () {
-                                                // removeSkillItem(index);
+                                                removeSkillItem(e);
                                               },
                                               child: SizedBox(
                                                 height: 20,
@@ -273,10 +273,9 @@ class _SkillState extends State<Skill> {
     }));
   }
 
-  removeSkillItem(int index) {
-    print("${listSkill[index].skill.text}");
+  removeSkillItem(SkillModel skillModel) {
     setState(() {
-      listSkill.remove(listSkill[index]);
+      listSkill.remove(skillModel);
     });
   }
 }

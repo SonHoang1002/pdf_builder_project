@@ -15,8 +15,9 @@ class SkillPDFView1 extends pw.StatelessWidget {
   pw.Widget build(pw.Context context) {
     testSkill(listSkill);
     return pw.Container(
-        height: 60 + listSkill.length * 15,
+        height: height,
         width: 200,
+        // color: PdfColors.yellow,
         child: pw.Column(children: [
           pw.Row(children: [
             pw.Container(
@@ -35,18 +36,20 @@ class SkillPDFView1 extends pw.StatelessWidget {
                         color: PdfColors.red,
                         fontWeight: pw.FontWeight.bold))),
           ]),
-          pw.Container(
-              child: pw.Column(
-                  children: listSkill.map((element) {
+          // pw.Container(
+          //     child:
+          pw.Column(
+              children: listSkill.map((element) {
             return pw.Wrap(children: [
-              pw.Row(children: [
+              // pw.Row(children: [
                 pw.Text(element.skill.text.trim(),
                     style: pw.TextStyle(
                       color: PdfColors.grey,
                     ))
-              ])
+              // ])
             ], direction: pw.Axis.horizontal);
-          }).toList())),
+          }).toList())
+          // ),
         ]));
   }
 

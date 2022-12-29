@@ -44,12 +44,13 @@ class _AdditionalState extends State<Additional> {
   // late String listEdu[index].startTime =
   //     DateFormat("MM yyyy").format(DateTime.now()).toString();
   // late String listEdu[index].endTime = DateFormat("MM yyyy").format(DateTime.now()).toString();
+  late AdditionalModel additionalModel;
   @override
   Widget build(BuildContext context) {
     width = MediaQuery.of(context).size.width;
     return BlocBuilder<AdditionalBloc, AdditionalState>(
         builder: ((context, state) {
-      final AdditionalModel additionalModel =
+      additionalModel =
           BlocProvider.of<AdditionalBloc>(context).state.additionalModel;
       AdditionalRepo().setAdditionalRepo(additionalModel);
       return Container(
@@ -294,7 +295,7 @@ class _AdditionalState extends State<Additional> {
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            // removeEduItem(e);
+                                                                            removeLanguageItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
                                                                             AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
@@ -812,7 +813,7 @@ class _AdditionalState extends State<Additional> {
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            // removeEduItem(e);
+                                                                            removeCertificateItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
                                                                             AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
@@ -1329,7 +1330,7 @@ class _AdditionalState extends State<Additional> {
                                                                         GestureDetector(
                                                                           onTap:
                                                                               () {
-                                                                            // removeEduItem(e);
+                                                                            removeAchivementItem(e);
                                                                             context.read<AdditionalBloc>().add(UpdateAdditionalEvent(additionalModel));
                                                                             AdditionalRepo().setAdditionalRepo(additionalModel);
                                                                           },
@@ -1681,8 +1682,15 @@ class _AdditionalState extends State<Additional> {
     }));
   }
 
-  // double _buildHeightForLanguageElement() {
-  //   double height = 100;
-  //   return height;
-  // }
+  removeLanguageItem(Language language) {
+    additionalModel.listLang.remove(language);
+  }
+
+  removeCertificateItem(Certificate certificate) {
+    additionalModel.listCerti.remove(certificate);
+  }
+
+  removeAchivementItem(Achivement achivement) {
+    additionalModel.listAchie.remove(achivement);
+  }
 }
