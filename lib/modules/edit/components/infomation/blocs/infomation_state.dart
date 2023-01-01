@@ -12,7 +12,7 @@ class Init extends InformationState {
       : super(InformationModel(
             fullName: TextEditingController(text: "init name"),
             jobTitle: TextEditingController(text: "init job"),
-            date: TextEditingController(text: "init date"),
+            date: TextEditingController(text: ""),
             listUrl: [TextEditingController(text: "init url")]));
 
 

@@ -1,3 +1,6 @@
+
+import 'dart:io';
+
 import 'package:cv_1/models/export_all_models.dart';
 import 'package:flutter/material.dart';
 
@@ -74,9 +77,8 @@ class SkillRepo {
 }
 
 class SummaryRepo {
-  static SummaryModel listSummary = 
-    SummaryModel(summaryController: TextEditingController(text: "init pdf summary"))
-  ;
+  static SummaryModel listSummary = SummaryModel(
+      summaryController: TextEditingController(text: "init pdf summary"));
   setSummaryRepo(SummaryModel listSummary1) {
     listSummary = listSummary1;
   }
@@ -100,4 +102,17 @@ class AdditionalRepo {
   }
 
   AdditionalModel get getAdditionalRepo => listAdditional;
+}
+
+class ImageFileAvatarRepo {
+  static File file = File("");
+  setAvatarFile(File file1) => file = file1;
+  File get getAvatarFile => file;
+}
+
+class NumberOfPdfTemplate {
+  static int number = 0;
+  static const int allNumberOfTemplate = 10;
+  setNumberOfTemplate(int num) => number = num;
+  int get getNumberOfTemplate => number;
 }

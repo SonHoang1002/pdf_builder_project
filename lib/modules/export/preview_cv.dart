@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:cv_1/models/contact_model.dart';
 import 'package:cv_1/models/export_all_models.dart';
@@ -9,13 +11,11 @@ import 'package:cv_1/modules/export/component/experience_pdf_view.dart';
 import 'package:cv_1/modules/export/component/information_pdf_view.dart';
 import 'package:cv_1/modules/export/component/skill_pdf_view.dart';
 import 'package:cv_1/repository/repository.dart';
-import 'package:cv_1/tests/constant.dart';
-import 'package:cv_1/tests/test_dropdownlist.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'package:flutter/material.dart';
 
 import 'dart:async';
 
@@ -37,6 +37,7 @@ final listSkill = SkillRepo().getSkillRepo;
 class _PriviewCVState extends State<PriviewCV> {
   @override
   Widget build(BuildContext context) {
+    print("number of certi: ${additional.listCerti.length}");
     return Scaffold(
       appBar: AppBar(title: Text("Preview")),
       body: PdfPreview(
@@ -57,11 +58,12 @@ const sep = 120.0;
 
 Future<Uint8List> generateResume1(PdfPageFormat format) async {
   final doc = pw.Document(title: 'My Résumé', author: 'David PHAM-VAN');
+  final url =
+      (await rootBundle.load('assets/images/profile.jpg')).buffer.asUint8List();
 
   final profileImage = pw.MemoryImage(
     (await rootBundle.load('assets/images/profile.jpg')).buffer.asUint8List(),
   );
-
   final pageTheme = await _myPageTheme(format);
   print(format.height);
   print(format.width);
@@ -72,12 +74,68 @@ Future<Uint8List> generateResume1(PdfPageFormat format) async {
         // pageTheme: pw.PageTheme(),
         // pageFormat: PdfPageFormat.a4,
         // theme: pw.ThemeData(),
-        build: (pw.Context context) => _getAny(format)),
+        build: (pw.Context context) => _getPdfView1(url)),
   );
   return doc.save();
 }
 
-List<pw.Widget> _getAny(PdfPageFormat format) {
+List<pw.Widget> _getPdfView1(Uint8List url) {
+  final file = ImageFileAvatarRepo().getAvatarFile;
+  return [
+    pw.Partitions(
+      children: [
+        pw.Partition(
+            width: 200,
+            child: pw.Column(children: [
+              pw.Container(
+                // color: PdfColors.red,
+                child: pw.Row(
+                    // color: PdfColors.red,
+                    children: [
+                      pw.Container(
+                        width: 150,
+                        height: 150,
+                        color: PdfColors.red,
+                        child: file.path == ""
+                            ? pw.Image(pw.MemoryImage(url))
+                            : pw.Image(
+                                fit: pw.BoxFit.cover,
+                                pw.MemoryImage(
+                                    File(file.path).readAsBytesSync())),
+                      ),
+                    ]),
+              ),
+              ContactPDFView1(),
+              SkillPDFView1(),
+              pw.Wrap(children: [
+                additional.listLang.length == 0
+                    ? pw.Container()
+                    : buildLanguage1(additional),
+                // certificate
+                additional.listCerti.length == 0
+                    ? pw.Container()
+                    : buildCetificate1(additional),
+                // achivement
+                additional.listAchie.length == 0
+                    ? pw.Container()
+                    : buildAchivement1(additional),
+              ])
+              // AdditionalPDFView1()
+            ])),
+        pw.Partition(
+            width: 292,
+            child: pw.Column(children: [
+              InformationPDFView1(),
+              ExperiencePDFView1(),
+              EducationPDFView1()
+            ])),
+      ],
+    ),
+  ];
+}
+
+List<pw.Widget> _getPdfView2(PdfPageFormat format, Uint8List url) {
+  final file = ImageFileAvatarRepo().getAvatarFile;
   return [
     pw.Partitions(
       children: [
@@ -85,142 +143,100 @@ List<pw.Widget> _getAny(PdfPageFormat format) {
             width: 200,
             child: pw.Column(children: [
               pw.Center(
+                // child: pw.ClipOval(
                 child: pw.Container(
-                  color: PdfColors.red,
-                  height: 150,
                   width: 150,
+                  height: 150,
+                  color: PdfColors.red,
+                  child: file.path == ""
+                      ? pw.Image(pw.MemoryImage(url))
+                      : pw.Image(
+                          fit: pw.BoxFit.cover,
+                          pw.MemoryImage(File(file.path).readAsBytesSync())),
                 ),
+                // ),
               ),
-              ContactPDFView1(height: 200, width: 200),
-              SkillPDFView1(height: 200, width: 200),
+              InformationPDFView1(),
+              ContactPDFView1(),
+              SkillPDFView1(),
               pw.Wrap(children: [
                 additional.listLang.length == 0
                     ? pw.Container()
-                    : buildLanguage1(additional, format.width),
+                    : buildLanguage1(additional),
                 // certificate
                 additional.listCerti.length == 0
                     ? pw.Container()
-                    : buildCetificate1(additional, format.width),
+                    : buildCetificate1(additional),
                 // achivement
                 additional.listAchie.length == 0
                     ? pw.Container()
-                    : buildAchivement1(additional, format.width),
+                    : buildAchivement1(additional),
               ])
               // AdditionalPDFView1()
             ])),
         pw.Partition(
             width: 292,
+            child: pw.Column(
+                children: [ExperiencePDFView1(), EducationPDFView1()])),
+      ],
+    ),
+  ];
+}
+
+List<pw.Widget> _getPdfView3(PdfPageFormat format, Uint8List url) {
+  final file = ImageFileAvatarRepo().getAvatarFile;
+  return [
+    pw.Center(
+      // child: pw.ClipOval(
+      child: pw.Container(
+        width: 150,
+        height: 150,
+        color: PdfColors.red,
+        child: file.path == ""
+            ? pw.Image(pw.MemoryImage(url))
+            : pw.ClipOval(
+                child: pw.Image(
+                    fit: pw.BoxFit.cover,
+                    pw.MemoryImage(File(file.path).readAsBytesSync()))),
+      ),
+      // ),
+    ),
+    pw.Center(
+      child: InformationPDFView3(),
+    ),
+    pw.Partitions(
+      children: [
+        pw.Partition(
+            width: 250,
             child: pw.Column(children: [
-              InformationPDFView1(height: format.height, width: format.width),
-              ExperiencePDFView1(height: format.height, width: format.width),
-              EducationPDFView1(height: format.height, width: format.width)
+              ContactPDFView3(),
+              SkillPDFView3(),
+              pw.Wrap(children: [
+                additional.listLang.length == 0
+                    ? pw.Container()
+                    : buildLanguage3(additional),
+                // certificate
+                additional.listCerti.length == 0
+                    ? pw.Container()
+                    : buildCetificate3(additional),
+                // achivement
+                additional.listAchie.length == 0
+                    ? pw.Container()
+                    : buildAchivement3(additional),
+              ])
+              // AdditionalPDFView1()
+            ])),
+        pw.Partition(
+            width: 250,
+            child: pw.Column(children: [
+              pw.SizedBox(height: 15),
+              ExperiencePDFView3(),
+              EducationPDFView3()
             ])),
       ],
     ),
   ];
 }
-//  pw.Wrap(children: [
-//           pw.Partitions(
-//             children: [
-//               pw.Partition(
-//                   width: 200,
-//                   // flex: 3,
-//                   child: pw.Column(children: [
-//                     // pw.Flexible(
-//                     pw.Container(
-//                       // height: pageTheme.pageFormat.availableHeight,
-//                       padding: pw.EdgeInsets.fromLTRB(15, 10, 25, 0),
-//                       color: PdfColors.black,
-//                       child: pw.Column(
-//                         crossAxisAlignment: pw.CrossAxisAlignment.start,
-//                         children: [
-//                           pw.Center(
-//                             child: pw.Container(
-//                                 color: PdfColors.red,
-//                                 height: setHeighForAvatar(),
-//                                 width: 150),
-//                           ),
-//                           // pw.Container(
-//                           //   constraints: pw.BoxConstraints(minWidth: 120),
-//                           //   child:
-//                           pw.Wrap(children: [
-//                             ContactPDFView1(
-//                                 height: setHeighForContact(),
-//                                 width: format.width),
-//                           ]),
-//                           // ),
-//                           pw.Wrap(children: [
-//                             SkillPDFView1(
-//                                 height: setHeighForSkill(),
-//                                 width: format.width),
-//                           ]),
-//                           pw.Wrap(children: [
-//                             additional.listLang.length == 0
-//                                 ? pw.Container()
-//                                 : pw.Container(
-//                                     // color: PdfColors.green,
-//                                     // height: setHeighAddtional(
-//                                     //     "Language", additional),
-//                                     child: buildLanguage1(
-//                                         additional, format.width)),
-//                             // certificate
-//                             additional.listCerti.length == 0
-//                                 ? pw.Container()
-//                                 : pw.Container(
-//                                     color: PdfColors.green,
-//                                     // height: setHeighAddtional(
-//                                     //     "Certificate", additional),
-//                                     child: buildCetificate1(
-//                                         additional,
-//                                         setHeighAddtional(
-//                                             "Certificate", additional),
-//                                         format.width)),
-//                             // // achivement
-//                             // additional.listAchie.length == 0
-//                             //     ? pw.Container()
-//                             //     : pw.Container(
-//                             //         child: buildAchivement1(additional,setHeighAddtional("Achivement",additional),format.width)),
-//                           ])
-//                           // AdditionalPDFView1()
-//                         ],
-//                       ),
-//                     ),
-//                     // flex: 1)
-//                   ])),
-//               pw.Partition(
-//                   width: 292,
-//                   // flex: 8,
-//                   child: pw.Column(children: [
-//                     // pw.Flexible(
-//                     pw.Container(
-//                       // padding: pw.EdgeInsets.fromLTRB(10, 10, 5, 0),
-//                       // height: pageTheme.pageFormat.availableHeight,
-//                       color: PdfColors.black,
-//                       child: pw.Column(
-//                         crossAxisAlignment: pw.CrossAxisAlignment.start,
-//                         children: [
-//                           // pw.Container(
-//                           // color: PdfColors.green, height: 200, width: 350),
-//                           pw.Wrap(children: [
-//                             InformationPDFView1(
-//                                 height: format.height, width: format.width),
-//                           ]),
-//                           pw.Wrap(children: [
-//                             ExperiencePDFView1(
-//                                 height: format.height, width: format.width),
-//                           ]),
-//                           pw.Wrap(children: [
-//                             EducationPDFView1(
-//                                 height: format.height, width: format.width)
-//                           ]),
-//                         ],
-//                       ),
-//                     ),
-//                     // flex: 2)
-//                   ]))
-//             ],
-//           ),
-//         ])
 
 Future<pw.PageTheme> _myPageTheme(PdfPageFormat format) async {
   final bgShape = await rootBundle.loadString('assets/images/black_image.svg');

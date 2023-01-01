@@ -1,4 +1,5 @@
 import 'package:cv_1/models/contact_model.dart';
+import 'package:cv_1/modules/edit/components/contact/blocs/contact_state.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class ContactEvent extends Equatable {
@@ -13,3 +14,4 @@ class UpdateContactEvent extends ContactEvent {
   @override
   List<Object?> get props => [];
 }
+

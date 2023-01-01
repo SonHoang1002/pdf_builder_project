@@ -1,19 +1,13 @@
-import 'package:cv_1/models/infomation_model.dart';
 import 'package:cv_1/modules/edit/components/additional/blocs/additional_bloc.dart';
+import 'package:cv_1/modules/edit/components/all_view.dart';
 import 'package:cv_1/modules/edit/components/contact/blocs/contact_bloc.dart';
 import 'package:cv_1/modules/edit/components/education/blocs/education_bloc.dart';
 import 'package:cv_1/modules/edit/components/experience/blocs/experience_bloc.dart';
 import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_bloc.dart';
-import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_event.dart';
-import 'package:cv_1/modules/edit/components/infomation/blocs/infomation_state.dart';
 import 'package:cv_1/modules/edit/components/skill/blocs/skill_bloc.dart';
 import 'package:cv_1/modules/edit/components/summary/blocs/summary_bloc.dart';
 import 'package:cv_1/modules/edit/edit.dart';
-import 'package:cv_1/modules/home/home.dart';
-import 'package:cv_1/modules/onboading/on_boarding.dart';
 import 'package:cv_1/observer/observer.dart';
-import 'package:cv_1/tests/test.dart';
-import 'package:cv_1/tests/test_dropdownlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -53,6 +47,25 @@ class MyApp extends StatelessWidget {
         BlocProvider<SkillBloc>(create: ((context) => SkillBloc())),
         BlocProvider<SummaryBloc>(create: ((context) => SummaryBloc())),
         BlocProvider<AdditionalBloc>(create: ((context) => AdditionalBloc())),
+        BlocProvider<ImageAvatarCubit>(
+            create: ((context) => ImageAvatarCubit())),
+        //title
+        BlocProvider<InfoTitleBloc>(create: ((context) => InfoTitleBloc())),
+        BlocProvider<ContactPhoneTitleCubit>(
+            create: ((context) => ContactPhoneTitleCubit())),
+        BlocProvider<ContactEmailTitleCubit>(
+            create: ((context) => ContactEmailTitleCubit())),
+        BlocProvider<ContactAddressTitleCubit>(
+            create: ((context) => ContactAddressTitleCubit())),
+
+        BlocProvider<EducationSchoolTitleCubit>(
+            create: ((context) => EducationSchoolTitleCubit())),
+        BlocProvider<EducationGraduationTitleCubit>(
+            create: ((context) => EducationGraduationTitleCubit())),
+        BlocProvider<EducationAchivementTitleCubit>(
+            create: ((context) => EducationAchivementTitleCubit())),
+
+// ContactAddressTitleCubit
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

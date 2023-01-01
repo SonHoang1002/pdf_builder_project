@@ -23,3 +23,4 @@ class SetContact extends ContactState {
   SetContact(this.contactModel)
       : super(contactModel);
 }
+

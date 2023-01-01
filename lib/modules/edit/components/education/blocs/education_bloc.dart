@@ -10,3 +10,20 @@ class EducationBloc extends Bloc<EducationEvent, EducationState> {
     });
   }
 }
+
+class EducationSchoolTitleCubit extends Cubit<List<String>> {
+  EducationSchoolTitleCubit() : super(["University/School"]);
+  void updateEducationSchoolEvent(List<String> value) => emit(value);
+}
+
+class EducationGraduationTitleCubit extends Cubit<List<String>> {
+  EducationGraduationTitleCubit() : super(["Graduation Year"]);
+  void updateEducationGraduationEvent(List<String> value) => emit(value);
+}
+
+class EducationAchivementTitleCubit extends Cubit<List<String>> {
+  EducationAchivementTitleCubit() : super(["Achivement(Optinal)"]);
+  void updateEducationAchivementEvent(List<String> value) => emit(value);
+}
+
+

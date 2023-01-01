@@ -999,9 +999,9 @@ class _AdditionalState extends State<Additional> {
                                                                                     return CupertinoDatePicker(
                                                                                       mode: CupertinoDatePickerMode.date,
                                                                                       onDateTimeChanged: (value) {
-                                                                                        if (value != null && value != additionalModel.listCerti[index].dateCertiController.text.trim())
+                                                                                        // if (value != null && value != additionalModel.listCerti[index].dateCertiController.text.trim())
                                                                                           setState(() {
-                                                                                            additionalModel.listCerti[index].dateCertiController.text = DateFormat("dd-MM-yyyy").format(value);
+                                                                                            additionalModel.listCerti[indexCerti].dateCertiController.text = DateFormat("dd-MM-yyyy").format(value);
                                                                                           });
                                                                                       },
                                                                                       initialDateTime: DateTime.now(),
@@ -1516,9 +1516,9 @@ class _AdditionalState extends State<Additional> {
                                                                                     return CupertinoDatePicker(
                                                                                       mode: CupertinoDatePickerMode.date,
                                                                                       onDateTimeChanged: (value) {
-                                                                                        if (value != null && value != additionalModel.listAchie[index].dateAchieController.text.trim())
+                                                                                        // if (value != null && value != additionalModel.listAchie[index].dateAchieController.text.trim())
                                                                                           setState(() {
-                                                                                            additionalModel.listAchie[index].dateAchieController.text = DateFormat("dd-MM-yyyy").format(value);
+                                                                                            additionalModel.listAchie[indexAchie].dateAchieController.text = DateFormat("dd-MM-yyyy").format(value);
                                                                                           });
                                                                                       },
                                                                                       initialDateTime: DateTime.now(),

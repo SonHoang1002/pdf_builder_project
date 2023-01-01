@@ -11,6 +11,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
+late List<String> fullEducationTitles = [
+  "Education",
+  "University/School",
+  "Degree",
+  "Graduation Year",
+  "Achievement(Optional)"
+];
+late List<String> shortEducationTitles = [
+  "Education",
+  "School",
+  "Degree",
+  "Graduation",
+  "Achievement"
+];
+
 class Education extends StatefulWidget {
   const Education({super.key});
 
@@ -19,35 +34,11 @@ class Education extends StatefulWidget {
 }
 
 class _EducationState extends State<Education> {
-  // late List<EducationModel> listEdu = [
-  //   EducationModel(
-  //       university: TextEditingController(text: ""),
-  //       degree: TextEditingController(text: ""),
-  //       grad: TextEditingController(text: ""),
-  //       achie: TextEditingController(text: ""),
-  //       startTime: DateTime.now(),
-  //       endTime: DateTime.now(),
-  //       isOpen: true)
-  // ];
-
-  late List<String> titles = [
-    "Education",
-    "University/School",
-    "Degree",
-    "Graduation Year",
-    "Achievement(Optional)"
-  ];
-
   bool isBeginPeriod = true;
   late bool isPresent = false;
   late bool isFixing = false;
 
   late double width = 100;
-  // bool isBeginPeriod = true;
-  // late bool isPresent = false;
-  // late String listEdu[index].startTime =
-  //     DateFormat("MM yyyy").format(DateTime.now()).toString();
-  // late String listEdu[index].endTime = DateFormat("MM yyyy").format(DateTime.now()).toString();
   late List<EducationModel> listEdu;
   @override
   Widget build(BuildContext context) {
@@ -55,6 +46,34 @@ class _EducationState extends State<Education> {
     return BlocBuilder<EducationBloc, EducationState>(
         builder: ((context, state) {
       listEdu = BlocProvider.of<EducationBloc>(context).state.model;
+
+      final listSchool =
+          BlocProvider.of<EducationSchoolTitleCubit>(context).state;
+      final listGraduation =
+          BlocProvider.of<EducationGraduationTitleCubit>(context).state;
+      final listAchiv =
+          BlocProvider.of<EducationAchivementTitleCubit>(context).state;
+
+      for (int i = 0; i < listEdu.length; i++) {
+        if (listEdu[i].university.text.trim().length > 0) {
+          listSchool[i] = shortEducationTitles[1];
+          context
+              .read<EducationSchoolTitleCubit>()
+              .updateEducationSchoolEvent(listSchool);
+        }
+        if (listEdu[i].grad.text.trim().length > 0) {
+          listGraduation[i] = shortEducationTitles[3];
+          context
+              .read<EducationGraduationTitleCubit>()
+              .updateEducationGraduationEvent(listGraduation);
+        }
+        if (listEdu[i].achie.text.trim().length > 0) {
+          listAchiv[i] = shortEducationTitles[4];
+          context
+              .read<EducationAchivementTitleCubit>()
+              .updateEducationAchivementEvent(listAchiv);
+        }
+      }
       EducationRepo().setEducationRepo(listEdu);
       return Container(
         height: 515,
@@ -129,7 +148,7 @@ class _EducationState extends State<Education> {
                         context
                             .read<EducationBloc>()
                             .add(UpdateEducationEvent(listEdu));
-                            EducationRepo().setEducationRepo(listEdu);
+                        EducationRepo().setEducationRepo(listEdu);
                       }),
                       children: listEdu
                           .map((e) => Container(
@@ -220,17 +239,11 @@ class _EducationState extends State<Education> {
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(20))),
                                     child: Column(children: [
-                                      // education
+                                      // education title
                                       SizedBox(
                                         width: 0.8 * width,
                                         height: 43,
                                         child: TextFormField(
-                                          // controller: listEdu[index].university,
-                                          // onChanged: (value) {
-                                          //   context.read<EducationBloc>().add(
-                                          //       UpdateEducationEvent(listEdu));
-                                          // EducationRepo().setEducationRepo(listEdu);
-                                          // },
                                           readOnly: true,
                                           style: const TextStyle(
                                               fontWeight: FontWeight.bold),
@@ -252,7 +265,8 @@ class _EducationState extends State<Education> {
                                                                     .text
                                                                     .trim() ==
                                                                 ""
-                                                            ? titles[0]
+                                                            ? fullEducationTitles[
+                                                                0]
                                                             : listEdu[index]
                                                                 .university
                                                                 .text
@@ -292,100 +306,101 @@ class _EducationState extends State<Education> {
                                       ),
                                       // university
                                       SizedBox(
-                                        width: 0.8 * width,
-                                        height: 43,
-                                        child: TextFormField(
-                                          controller: listEdu[index].university,
-                                          onChanged: (value) {
-                                            context.read<EducationBloc>().add(
-                                                UpdateEducationEvent(listEdu));
-                                                EducationRepo().setEducationRepo(listEdu);
-                                          },
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.fromLTRB(
-                                                    0, 9, 0, 0),
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            prefixIcon: Container(
-                                              width: 148,
-                                              child: Row(
-                                                // mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
-                                                    child: Text(
-                                                      titles[1],
-                                                      style: const TextStyle(
-                                                          color: Colors.black),
+                                          width: 0.8 * width,
+                                          height: 43,
+                                          child: BlocBuilder<
+                                              EducationSchoolTitleCubit,
+                                              List<String>>(
+                                            builder: ((context, state) {
+                                              return TextFormField(
+                                                controller:
+                                                    listEdu[index].university,
+                                                onChanged: (value) {
+                                                  context
+                                                      .read<EducationBloc>()
+                                                      .add(UpdateEducationEvent(
+                                                          listEdu));
+                                                  EducationRepo()
+                                                      .setEducationRepo(
+                                                          listEdu);
+                                                  final listSchool = context
+                                                      .read<
+                                                          EducationSchoolTitleCubit>()
+                                                      .state;
+                                                  if (listEdu[index]
+                                                          .university
+                                                          .text
+                                                          .trim()
+                                                          .length >
+                                                      0) {
+                                                    listSchool[index] =
+                                                        shortEducationTitles[1];
+                                                  } else {
+                                                    listSchool[index] =
+                                                        fullEducationTitles[1];
+                                                  }
+                                                  context
+                                                      .read<
+                                                          EducationSchoolTitleCubit>()
+                                                      .updateEducationSchoolEvent(
+                                                          listSchool);
+                                                },
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 9, 0, 0),
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                  prefixIcon: Container(
+                                                    width: 148,
+                                                    child: Row(
+                                                      // mainAxisSize: MainAxisSize.min,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 5, 0),
+                                                          child: Text(
+                                                            context
+                                                                .watch<
+                                                                    EducationSchoolTitleCubit>()
+                                                                .state[index],
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          )),
                                       // degree
                                       SizedBox(
-                                        width: 0.8 * width,
-                                        height: 43,
-                                        child: TextFormField(
-                                          controller: listEdu[index].degree,
-                                          onChanged: (value) {
-                                            context.read<EducationBloc>().add(
-                                                UpdateEducationEvent(listEdu));
-                                                EducationRepo().setEducationRepo(listEdu);
-                                          },
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.fromLTRB(
-                                                    0, 8, 0, 0),
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            prefixIcon: Container(
-                                              width: 148,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
-                                                    child: Text(
-                                                      titles[2],
-                                                      style: const TextStyle(
-                                                          color: Colors.black),
-                                                    ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      //graduation
-                                      SizedBox(
-                                        width: 0.8 * width,
-                                        height: 44,
-                                        child: TextFormField(
-                                          controller: listEdu[index].grad,
-                                          onChanged: (value) {
-                                            context.read<EducationBloc>().add(
-                                                UpdateEducationEvent(listEdu));
-                                                EducationRepo().setEducationRepo(listEdu);
-                                          },
-                                          readOnly: true,
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                          decoration: InputDecoration(
+                                          width: 0.8 * width,
+                                          height: 43,
+                                          child: TextFormField(
+                                            controller: listEdu[index].degree,
+                                            onChanged: (value) {
+                                              context.read<EducationBloc>().add(
+                                                  UpdateEducationEvent(
+                                                      listEdu));
+                                              EducationRepo()
+                                                  .setEducationRepo(listEdu);
+                                            },
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                            decoration: InputDecoration(
                                               contentPadding:
                                                   const EdgeInsets.fromLTRB(
-                                                      0, 0, 0, 12),
+                                                      0, 8, 0, 0),
                                               fillColor: Colors.white,
                                               filled: true,
                                               prefixIcon: Container(
@@ -398,7 +413,7 @@ class _EducationState extends State<Education> {
                                                       padding: const EdgeInsets
                                                           .fromLTRB(0, 0, 5, 0),
                                                       child: Text(
-                                                        titles[3],
+                                                        fullEducationTitles[2],
                                                         style: const TextStyle(
                                                             color:
                                                                 Colors.black),
@@ -407,69 +422,185 @@ class _EducationState extends State<Education> {
                                                   ],
                                                 ),
                                               ),
-                                              suffix: Column(
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 26,
-                                                  ),
-                                                  GestureDetector(
-                                                    onTap: () {
-                                                      _buildTime(index);
-                                                    },
-                                                    child: SizedBox(
-                                                      height: 18,
-                                                      width: 18,
-                                                      child: Image.asset(
-                                                          ConstantVariable
-                                                                  .pathImg +
-                                                              "calendar_dark.png"),
+                                            ),
+                                          )),
+                                      //graduation
+                                      SizedBox(
+                                          width: 0.8 * width,
+                                          height: 44,
+                                          child: BlocBuilder<
+                                              EducationGraduationTitleCubit,
+                                              List<String>>(
+                                            builder: (context, state) {
+                                              return TextFormField(
+                                                controller: listEdu[index].grad,
+                                                onChanged: (value) {
+                                                  context
+                                                      .read<EducationBloc>()
+                                                      .add(UpdateEducationEvent(
+                                                          listEdu));
+                                                  EducationRepo()
+                                                      .setEducationRepo(
+                                                          listEdu);
+                                                  final listGraduation = context
+                                                      .watch<
+                                                          EducationGraduationTitleCubit>()
+                                                      .state;
+                                                  if (listEdu[index]
+                                                      .grad
+                                                      .text
+                                                      .isEmpty) {
+                                                    listGraduation[index] =
+                                                        shortEducationTitles[3];
+                                                  } else {
+                                                    listGraduation[index] =
+                                                        fullEducationTitles[3];
+                                                  }
+                                                  context
+                                                      .read<
+                                                          EducationGraduationTitleCubit>()
+                                                      .updateEducationGraduationEvent(
+                                                          listGraduation);
+                                                },
+                                                readOnly: true,
+                                                style: const TextStyle(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                decoration: InputDecoration(
+                                                    contentPadding:
+                                                        const EdgeInsets
+                                                                .fromLTRB(
+                                                            0, 0, 0, 12),
+                                                    fillColor: Colors.white,
+                                                    filled: true,
+                                                    prefixIcon: Container(
+                                                      width: 148,
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .fromLTRB(
+                                                                    0, 0, 5, 0),
+                                                            child: Text(
+                                                              context
+                                                                  .watch<
+                                                                      EducationGraduationTitleCubit>()
+                                                                  .state[index],
+                                                              style: const TextStyle(
+                                                                  color: Colors
+                                                                      .black),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                        ),
-                                      ),
+                                                    suffix: Column(
+                                                      children: [
+                                                        const SizedBox(
+                                                          height: 26,
+                                                        ),
+                                                        GestureDetector(
+                                                          onTap: () {
+                                                            _buildTime(index);
+                                                          },
+                                                          child: SizedBox(
+                                                            height: 18,
+                                                            width: 18,
+                                                            child: Image.asset(
+                                                                ConstantVariable
+                                                                        .pathImg +
+                                                                    "calendar_dark.png"),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    )),
+                                              );
+                                            },
+                                          )),
                                       // achieverment
                                       SizedBox(
-                                        width: 0.8 * width,
-                                        height: 43,
-                                        child: TextFormField(
-                                          controller: listEdu[index].achie,
-                                          onChanged: (value) {
-                                            context.read<EducationBloc>().add(
-                                                UpdateEducationEvent(listEdu));
-                                                EducationRepo().setEducationRepo(listEdu);
-                                          },
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontStyle: FontStyle.normal),
-                                          decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.fromLTRB(
-                                                    0, 8, 0, 0),
-                                            fillColor: Colors.white,
-                                            filled: true,
-                                            border: InputBorder.none,
-                                            prefixIcon: Container(
-                                              width: 148,
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .fromLTRB(0, 0, 5, 0),
-                                                    child: Text(
-                                                      titles[4],
-                                                      style: const TextStyle(
-                                                          color: Colors.black),
+                                          width: 0.8 * width,
+                                          height: 43,
+                                          child: BlocBuilder<
+                                              EducationAchivementTitleCubit,
+                                              List<String>>(
+                                            builder: (context, state) {
+                                              return TextFormField(
+                                                controller:
+                                                    listEdu[index].achie,
+                                                onChanged: (value) {
+                                                  context
+                                                      .read<EducationBloc>()
+                                                      .add(UpdateEducationEvent(
+                                                          listEdu));
+                                                  EducationRepo()
+                                                      .setEducationRepo(
+                                                          listEdu);
+                                                  final listAchiv = context
+                                                      .read<
+                                                          EducationAchivementTitleCubit>()
+                                                      .state;
+                                                  if (listEdu[index]
+                                                          .achie
+                                                          .text
+                                                          .trim()
+                                                          .length >
+                                                      0) {
+                                                    listAchiv[index] =
+                                                        shortEducationTitles[4];
+                                                  } else {
+                                                    listAchiv[index] =
+                                                        fullEducationTitles[4];
+                                                  }
+                                                  context
+                                                      .read<
+                                                          EducationAchivementTitleCubit>()
+                                                      .updateEducationAchivementEvent(
+                                                          listAchiv);
+                                                },
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontStyle:
+                                                        FontStyle.normal),
+                                                decoration: InputDecoration(
+                                                  contentPadding:
+                                                      const EdgeInsets.fromLTRB(
+                                                          0, 8, 0, 0),
+                                                  fillColor: Colors.white,
+                                                  filled: true,
+                                                  border: InputBorder.none,
+                                                  prefixIcon: Container(
+                                                    width: 148,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .fromLTRB(
+                                                                  0, 0, 5, 0),
+                                                          child: Text(
+                                                            context
+                                                                .watch<
+                                                                    EducationAchivementTitleCubit>()
+                                                                .state[index],
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .black),
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
-                                                  )
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          )),
                                     ]))
                                 : Container(
                                     width: width,
@@ -507,7 +638,8 @@ class _EducationState extends State<Education> {
                                                                     .text
                                                                     .trim() ==
                                                                 ''
-                                                            ? titles[0]
+                                                            ? fullEducationTitles[
+                                                                0]
                                                             : listEdu[index]
                                                                 .university
                                                                 .text
@@ -580,7 +712,54 @@ class _EducationState extends State<Education> {
                     context
                         .read<EducationBloc>()
                         .add(UpdateEducationEvent(listEdu));
-                        EducationRepo().setEducationRepo(listEdu);
+                    EducationRepo().setEducationRepo(listEdu);
+                    final listSchool =
+                        BlocProvider.of<EducationSchoolTitleCubit>(context)
+                            .state;
+                    final listGraduation =
+                        BlocProvider.of<EducationGraduationTitleCubit>(context)
+                            .state;
+                    final listAchiv =
+                        BlocProvider.of<EducationAchivementTitleCubit>(context)
+                            .state;
+
+                    final List<EducationModel> newListEdu =
+                        context.read<EducationBloc>().state.model;
+                    print(
+                        "------------------${newListEdu.length}---------------");
+                    // listSchool.add(newListEdu[newListEdu.length]
+                    //             .university
+                    //             .text
+                    //             .trim()
+                    //             .length >
+                    //         0
+                    //     ? shortEducationTitles[1]
+                    //     : fullEducationTitles[1]);
+                    // listGraduation.add(
+                    //     newListEdu[newListEdu.length].grad.text.trim().length >
+                    //             0
+                    //         ? shortEducationTitles[3]
+                    //         : fullEducationTitles[3]);
+                    // listAchiv.add(
+                    //     newListEdu[newListEdu.length].achie.text.trim().length >
+                    //             0
+                    //         ? shortEducationTitles[4]
+                    //         : fullEducationTitles[4]);
+
+                    listSchool.add(fullEducationTitles[1]);
+                    listGraduation.add(fullEducationTitles[3]);
+                    listAchiv.add(fullEducationTitles[4]);
+                    // print("listSchool :${listSchool}");
+                    // print("listGraduation :${listGraduation}");
+                    // print("listAchiv :${listAchiv}");
+
+                    BlocProvider.of<EducationSchoolTitleCubit>(context)
+                        .updateEducationSchoolEvent(listSchool);
+                    BlocProvider.of<EducationGraduationTitleCubit>(context)
+                        .updateEducationGraduationEvent(listGraduation);
+                    BlocProvider.of<EducationAchivementTitleCubit>(context)
+                        .updateEducationAchivementEvent(listAchiv);
+                    // BlocProvider.of<EducationAchivementTitleCubit>(context).updateEducationAchivementEvent()
                   },
                   child: const Text(
                     "Add Education",
@@ -646,7 +825,7 @@ class _EducationState extends State<Education> {
                                   context
                                       .read<EducationBloc>()
                                       .add(UpdateEducationEvent(listEdu));
-                                      EducationRepo().setEducationRepo(listEdu);
+                                  EducationRepo().setEducationRepo(listEdu);
                                 },
                                 child: Text(
                                   "Done",
