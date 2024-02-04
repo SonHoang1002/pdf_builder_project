@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cv_1/common/const_var.dart';
 import 'package:cv_1/common/format_input.dart';
 import 'package:cv_1/models/education_model.dart';
@@ -27,7 +29,8 @@ late List<String> shortEducationTitles = [
 ];
 
 class Education extends StatefulWidget {
-  const Education({super.key});
+  const Education({Key? key}) : super(key: key);
+
 
   @override
   State<Education> createState() => _EducationState();
@@ -152,7 +155,7 @@ class _EducationState extends State<Education> {
                       }),
                       children: listEdu
                           .map((e) => Container(
-                                key: Key(e.university.text),
+                                key: Key(Random().nextInt(1000).toString()),
                                 margin: const EdgeInsets.symmetric(
                                     horizontal: 20, vertical: 10),
                                 // color: Colors.red,

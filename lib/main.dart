@@ -14,7 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = SimpleBlocObserver();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 const MaterialColor white = const MaterialColor(
@@ -34,8 +34,15 @@ const MaterialColor white = const MaterialColor(
 );
 // final c= Color(#F1F1F1);
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
+
+class MyApp extends StatefulWidget {
+   
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -49,23 +56,24 @@ class MyApp extends StatelessWidget {
         BlocProvider<AdditionalBloc>(create: ((context) => AdditionalBloc())),
         BlocProvider<ImageAvatarCubit>(
             create: ((context) => ImageAvatarCubit())),
-        //title
+        ///-----------------------title---------------------------
+
+        //info
         BlocProvider<InfoTitleBloc>(create: ((context) => InfoTitleBloc())),
+        //contact
         BlocProvider<ContactPhoneTitleCubit>(
             create: ((context) => ContactPhoneTitleCubit())),
         BlocProvider<ContactEmailTitleCubit>(
             create: ((context) => ContactEmailTitleCubit())),
         BlocProvider<ContactAddressTitleCubit>(
             create: ((context) => ContactAddressTitleCubit())),
-
+        // edcuation
         BlocProvider<EducationSchoolTitleCubit>(
             create: ((context) => EducationSchoolTitleCubit())),
         BlocProvider<EducationGraduationTitleCubit>(
             create: ((context) => EducationGraduationTitleCubit())),
         BlocProvider<EducationAchivementTitleCubit>(
             create: ((context) => EducationAchivementTitleCubit())),
-
-// ContactAddressTitleCubit
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

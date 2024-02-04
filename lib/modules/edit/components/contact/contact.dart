@@ -14,7 +14,8 @@ late final fullContactTitle = ["Phone Number", "Email Address", "Your Address"];
 late final shortContactTitle = ["Phone", "Email", "Address"];
 
 class Contact extends StatefulWidget {
-  const Contact({super.key});
+  const Contact({Key? key}) : super(key: key);
+
 
   @override
   State<Contact> createState() => _ContactState();

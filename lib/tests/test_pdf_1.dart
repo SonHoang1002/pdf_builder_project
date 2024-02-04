@@ -21,7 +21,6 @@ late final fullContactTitle = ["Phone Number", "Email Address", "Your Address"];
 late final shortContactTitle = ["Phone", "Email", "Address"];
 
 class TestInput extends StatefulWidget {
-  const TestInput({super.key});
 
   @override
   State<TestInput> createState() => _TestInputState();

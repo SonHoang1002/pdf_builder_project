@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cv_1/common/const_var.dart';
 import 'package:cv_1/common/format_input.dart';
 import 'package:cv_1/models/experience_model.dart';
@@ -12,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Experience extends StatefulWidget {
-  const Experience({super.key});
 
   @override
   State<Experience> createState() => _ExperienceState();
@@ -142,7 +143,7 @@ class _ExperienceState extends State<Experience> {
                           }),
                           children: listExp
                               .map((e) => Container(
-                                    key: Key(e.job.text),
+                                    key: Key(Random().nextInt(1000).toString()),
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 10),
                                     // color: Colors.red,
@@ -238,7 +239,7 @@ class _ExperienceState extends State<Experience> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(20))),
                                         child: Column(children: [
-                                          // experience
+                                          // experience title
                                           SizedBox(
                                             width: 0.8 * width,
                                             height: 43,
@@ -313,7 +314,7 @@ class _ExperienceState extends State<Experience> {
                                                   )),
                                             ),
                                           ),
-                                          // job title
+                                          // job
                                           SizedBox(
                                             width: 0.8 * width,
                                             height: 43,
@@ -446,43 +447,14 @@ class _ExperienceState extends State<Experience> {
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
                                               decoration: InputDecoration(
-                                                  border: InputBorder.none,
-                                                  contentPadding:
-                                                      const EdgeInsets.fromLTRB(
-                                                          0, 8, 0, 0),
-                                                  fillColor: Colors.white,
-                                                  filled: true,
-                                                  prefixIcon:
-                                                      listExp[index]
-                                                                  .desc
-                                                                  .text
-                                                                  .length <=
-                                                              20
-                                                          ? Container(
-                                                              width: 111,
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .min,
-                                                                children: [
-                                                                  Padding(
-                                                                    padding:
-                                                                        const EdgeInsets.fromLTRB(
-                                                                            0,
-                                                                            0,
-                                                                            5,
-                                                                            0),
-                                                                    child: Text(
-                                                                      titles[3],
-                                                                      style: const TextStyle(
-                                                                          color:
-                                                                              Colors.black),
-                                                                    ),
-                                                                  )
-                                                                ],
-                                                              ),
-                                                            )
-                                                          : null),
+                                                border: InputBorder.none,
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        0, 8, 0, 0),
+                                                fillColor: Colors.white,
+                                                filled: true,
+                                                hintText: titles[3]
+                                                 ),
                                             ),
                                           ),
                                         ]))
@@ -500,7 +472,7 @@ class _ExperienceState extends State<Experience> {
                                             width: 0.8 * width,
                                             height: 43,
                                             child: TextFormField(
-                                              controller: listExp[index].work,
+                                              // controller: listExp[index].work,
                                               readOnly: true,
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold),
@@ -964,3 +936,40 @@ class _ExperienceState extends State<Experience> {
     print(listExp[0].desc.text.split("\n"));
   }
 }
+
+
+
+// prefix description
+
+// prefixIcon:
+                                                //     listExp[index]
+                                                //                 .desc
+                                                //                 .text
+                                                //                 .length <=
+                                                //             20
+                                                //         ? Container(
+                                                //             width: 111,
+                                                //             child: Row(
+                                                //               mainAxisSize:
+                                                //                   MainAxisSize
+                                                //                       .min,
+                                                //               children: [
+                                                //                 Padding(
+                                                //                   padding:
+                                                //                       const EdgeInsets.fromLTRB(
+                                                //                           0,
+                                                //                           0,
+                                                //                           5,
+                                                //                           0),
+                                                //                   child: Text(
+                                                //                     titles[3],
+                                                //                     style: const TextStyle(
+                                                //                         color:
+                                                //                             Colors.black),
+                                                //                   ),
+                                                //                 )
+                                                //               ],
+                                                //             ),
+                                                //           )
+                                                //         : null
+                                             

@@ -12,7 +12,8 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Summary extends StatefulWidget {
-  const Summary({super.key});
+  const Summary({Key? key}) : super(key: key);
+
 
   @override
   State<Summary> createState() => _SummaryState();

@@ -11,7 +11,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Test1 extends StatefulWidget {
-  const Test1({super.key});
+  const Test1({Key? key}) : super(key: key);
+
+
 
   @override
   State<Test1> createState() => _Test1State();
@@ -967,7 +969,8 @@ class _Test1State extends State<Test1> {
 }
 
 class Page2 extends StatelessWidget {
-  const Page2({super.key});
+  const Page2({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {

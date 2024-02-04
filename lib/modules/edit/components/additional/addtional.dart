@@ -14,8 +14,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Additional extends StatefulWidget {
-  const Additional({super.key});
-
+  
   @override
   State<Additional> createState() => _AdditionalState();
 }
@@ -101,12 +100,7 @@ class _AdditionalState extends State<Additional> {
               ),
               //input tags
               Container(
-                height: (590
-                    // +20 *
-                    //     (additionalModel.listAchie.length +
-                    //         additionalModel.listCerti.length +
-                    //         additionalModel.listLang.length -
-                    //         3)
+                height: (600
                     ),
                 // color: Colors.green,
                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
@@ -120,8 +114,13 @@ class _AdditionalState extends State<Additional> {
                             child: additionalModel.langOpen
                                 ? Container(
                                     // height: additionalModel.listLang.length >2 ? 230 : additionalModel.listLang.length >1 ? 200 :160,
-                                    height: (100 +
-                                        additionalModel.listLang.length * 53),
+                                    height: isFixing
+                                        ? (100 +
+                                            additionalModel.listLang.length *
+                                                70)
+                                        : (100 +
+                                            additionalModel.listLang.length *
+                                                53),
                                     width: width,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
@@ -203,10 +202,10 @@ class _AdditionalState extends State<Additional> {
                                       isFixing
                                           ? Container(
                                               color: Colors.red,
-                                              height: (30 +
+                                              height: (10 +
                                                   additionalModel
                                                           .listLang.length *
-                                                      55),
+                                                      70),
                                               child: ReorderableListView(
                                                 onReorder:
                                                     ((oldIndex, newIndex) {
@@ -262,7 +261,7 @@ class _AdditionalState extends State<Additional> {
                                                     additionalModel.listLang
                                                         .map((e) => Container(
                                                               key: Key(
-                                                                  "${Random().nextInt(10000)}"),
+                                                                  "${Random().nextInt(1000)}"),
                                                               margin: const EdgeInsets
                                                                       .symmetric(
                                                                   horizontal:
@@ -636,13 +635,19 @@ class _AdditionalState extends State<Additional> {
                         Container(
                             child: additionalModel.certiOpen
                                 ? Container(
-                                    // height: additionalModel.listLang.length >2 ? 230 : additionalModel.listLang.length >1 ? 200 :160,
-                                    height: (85 +
-                                        additionalModel.listCerti.length * 116),
+                                    height: isFixing
+                                        ? (23 +
+                                            additionalModel.listCerti.length *
+                                                100 -
+                                            (additionalModel.listCerti.length -
+                                                    1) *
+                                                20)
+                                        : (85 +
+                                            additionalModel.listCerti.length *
+                                                106),
                                     width: width,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
-                                    // color: Colors.red,
                                     decoration: const BoxDecoration(
                                         color: Colors.white,
                                         // color: Colors.green,
@@ -720,10 +725,13 @@ class _AdditionalState extends State<Additional> {
                                       isFixing
                                           ? Container(
                                               color: Colors.red,
-                                              height: (-145 +
-                                                  additionalModel
+                                              height: (additionalModel
                                                           .listCerti.length *
-                                                      101),
+                                                      80 -
+                                                  (additionalModel.listCerti
+                                                              .length -
+                                                          1) *
+                                                      10),
                                               child: ReorderableListView(
                                                 onReorder:
                                                     ((oldIndex, newIndex) {
@@ -875,7 +883,7 @@ class _AdditionalState extends State<Additional> {
                                                 Container(
                                                   height: (additionalModel
                                                           .listCerti.length *
-                                                      116),
+                                                      106),
                                                   //  color: Colors.red,
                                                   child: ListView.builder(
                                                       itemCount: additionalModel
@@ -1000,9 +1008,9 @@ class _AdditionalState extends State<Additional> {
                                                                                       mode: CupertinoDatePickerMode.date,
                                                                                       onDateTimeChanged: (value) {
                                                                                         // if (value != null && value != additionalModel.listCerti[index].dateCertiController.text.trim())
-                                                                                          setState(() {
-                                                                                            additionalModel.listCerti[indexCerti].dateCertiController.text = DateFormat("dd-MM-yyyy").format(value);
-                                                                                          });
+                                                                                        setState(() {
+                                                                                          additionalModel.listCerti[indexCerti].dateCertiController.text = DateFormat("dd-MM-yyyy").format(value);
+                                                                                        });
                                                                                       },
                                                                                       initialDateTime: DateTime.now(),
                                                                                     );
@@ -1154,8 +1162,16 @@ class _AdditionalState extends State<Additional> {
                         Container(
                             child: additionalModel.achieOpen
                                 ? Container(
-                                    height: (85 +
-                                        additionalModel.listAchie.length * 116),
+                                    height: isFixing
+                                        ? (23 +
+                                            additionalModel.listAchie.length *
+                                                100 -
+                                            (additionalModel.listAchie.length -
+                                                    1) *
+                                                20)
+                                        : (85 +
+                                            additionalModel.listAchie.length *
+                                                106),
                                     width: width,
                                     margin: const EdgeInsets.symmetric(
                                         horizontal: 20, vertical: 5),
@@ -1237,10 +1253,13 @@ class _AdditionalState extends State<Additional> {
                                       isFixing
                                           ? Container(
                                               color: Colors.red,
-                                              height: (-145 +
-                                                  additionalModel
+                                              height: (additionalModel
                                                           .listAchie.length *
-                                                      101),
+                                                      80 -
+                                                  (additionalModel.listAchie
+                                                              .length -
+                                                          1) *
+                                                      10),
                                               child: ReorderableListView(
                                                 onReorder:
                                                     ((oldIndex, newIndex) {
@@ -1297,7 +1316,7 @@ class _AdditionalState extends State<Additional> {
                                                     additionalModel.listAchie
                                                         .map((e) => Container(
                                                               key: Key(
-                                                                  "${Random().nextInt(10000)}"),
+                                                                  "${Random().nextInt(1000)}"),
                                                               margin: const EdgeInsets
                                                                       .symmetric(
                                                                   horizontal:
@@ -1392,7 +1411,7 @@ class _AdditionalState extends State<Additional> {
                                                 Container(
                                                   height: (additionalModel
                                                           .listAchie.length *
-                                                      116),
+                                                      106),
                                                   // color: Colors.red,
                                                   child: ListView.builder(
                                                       itemCount: additionalModel
@@ -1517,9 +1536,9 @@ class _AdditionalState extends State<Additional> {
                                                                                       mode: CupertinoDatePickerMode.date,
                                                                                       onDateTimeChanged: (value) {
                                                                                         // if (value != null && value != additionalModel.listAchie[index].dateAchieController.text.trim())
-                                                                                          setState(() {
-                                                                                            additionalModel.listAchie[indexAchie].dateAchieController.text = DateFormat("dd-MM-yyyy").format(value);
-                                                                                          });
+                                                                                        setState(() {
+                                                                                          additionalModel.listAchie[indexAchie].dateAchieController.text = DateFormat("dd-MM-yyyy").format(value);
+                                                                                        });
                                                                                       },
                                                                                       initialDateTime: DateTime.now(),
                                                                                     );

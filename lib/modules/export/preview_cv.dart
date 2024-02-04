@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 class PriviewCV extends StatefulWidget {
-  const PriviewCV({super.key});
+  const PriviewCV({Key? key}) : super(key: key);
 
   @override
   State<PriviewCV> createState() => _PriviewCVState();
@@ -99,9 +99,10 @@ List<pw.Widget> _getPdfView1(Uint8List url) {
                         child: file.path == ""
                             ? pw.Image(pw.MemoryImage(url))
                             : pw.Image(
-                                fit: pw.BoxFit.cover,
                                 pw.MemoryImage(
-                                    File(file.path).readAsBytesSync())),
+                                    File(file.path).readAsBytesSync()),
+                                fit: pw.BoxFit.cover,
+                              ),
                       ),
                     ]),
               ),
@@ -151,8 +152,9 @@ List<pw.Widget> _getPdfView2(PdfPageFormat format, Uint8List url) {
                   child: file.path == ""
                       ? pw.Image(pw.MemoryImage(url))
                       : pw.Image(
+                          pw.MemoryImage(File(file.path).readAsBytesSync()),
                           fit: pw.BoxFit.cover,
-                          pw.MemoryImage(File(file.path).readAsBytesSync())),
+                        ),
                 ),
                 // ),
               ),
@@ -196,8 +198,9 @@ List<pw.Widget> _getPdfView3(PdfPageFormat format, Uint8List url) {
             ? pw.Image(pw.MemoryImage(url))
             : pw.ClipOval(
                 child: pw.Image(
-                    fit: pw.BoxFit.cover,
-                    pw.MemoryImage(File(file.path).readAsBytesSync()))),
+                pw.MemoryImage(File(file.path).readAsBytesSync()),
+                fit: pw.BoxFit.cover,
+              )),
       ),
       // ),
     ),

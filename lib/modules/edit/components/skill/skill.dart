@@ -12,7 +12,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class Skill extends StatefulWidget {
-  const Skill({super.key});
+  const Skill({Key? key}) : super(key: key);
+
 
   @override
   State<Skill> createState() => _SkillState();

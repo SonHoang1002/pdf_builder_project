@@ -17,7 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class Infomation extends StatefulWidget {
-  const Infomation({super.key});
+  const Infomation({Key? key}) : super(key: key);
+
 
   @override
   State<Infomation> createState() => _InfomationState();
